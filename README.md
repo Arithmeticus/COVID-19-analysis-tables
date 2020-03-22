@@ -1,5 +1,22 @@
 # 2019 Novel Coronavirus COVID-19 (2019-nCoV) Web Crawler Data Repository by Johns Hopkins CSSE
 
+## Special fork by Joel Kalvesmaki: tabular analyses
+
+Tables of perhaps greatest interest, showing absolute numbers, and numbers per million population:
+* [Grouped by country](Country-Region.html)
+* [Grouped by language](language.html) (Note: this counts an entire country that has that language, even if minority, based on 
+[json data for languages in countries](https://github.com/samayo/country-json/blob/master/src/country-by-languages.json))
+* [Grouped by government type](government.html)
+* [Grouped by religion](religion.html)
+* [Grouped by landlocked or not](landlocked.html)
+
+I have hastily written an XSLT stylesheet that combines the data from 
+[Hopkins](https://github.com/CSSEGISandData/COVID-19) with the data provided by 
+[@samoyo](https://github.com/samayo/country-json) to present analyses of the table of confirmed cases, deaths, and recoveries grouped by different national traits. The table javascript comes from [the version of TableSorter provided by @mottie](https://mottie.github.io/tablesorter/docs/).
+
+I plan on refreshing the data only periodically, when I'm personally curious. You can fork or pull the project yourself and pull the files yourself, either from the master branch or the web-data one. You'll get the latest data working off the web-data branch, and being sure to pull from Hopkins's repo.
+
+## Original notice
 
 This is the web crawler data repository for the 2019 Novel Coronavirus Visual Dashboard operated by the Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE). Also, Supported by ESRI Living Atlas Team and the Johns Hopkins University Applied Physics Lab (JHU APL).
 
