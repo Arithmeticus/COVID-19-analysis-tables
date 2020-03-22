@@ -1,0 +1,1911 @@
+<?xml version="1.1" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:gpo="http://www.gpo.gov" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:file="http://expath.org/ns/file" xmlns:ucd="http://www.unicode.org/ns/2003/ucd/1.0" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+   
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      
+      
+      <title>Covid Analysis</title>
+      
+      <link rel="stylesheet" href="js/tablesorter/css/theme.default.css" type="text/css" />
+      <script src="js/jquery-3.4.1.min.js"></script>
+      <script type="text/javascript" src="js/tablesorter/js/jquery.tablesorter.combined.js"></script>
+      <script>
+         $(function(){
+         $('table.search').tablesorter({
+         widgets: ["filter"],
+         widgetOptions : {
+         filter_external : '.search',
+         filter_defaultFilter: { 1 : '~{query}' },
+         filter_columnFilters: false,
+         filter_placeholder: { search : 'Search...' },
+         filter_saveFilters : true,
+         filter_reset: '.reset'
+         }
+         });
+         $('table').tablesorter({
+         });
+         $('button[data-column]').on('click', function(){
+         var $this = $(this),
+         totalColumns = $table[0].config.columns,
+         col = $this.data('column'), // zero-based index or "all"
+         filter = [];
+         filter[ col === 'all' ? totalColumns : col ] = $this.text();
+         $table.trigger('search', [ filter ]);
+         return false;
+         });
+         });
+      </script>
+      </head>
+   
+   <body>
+      
+      <h1>COVID-19 analysis</h1>
+      <div xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Built 2020-03-22T06:14:24.337-04:00 from data at file:/U:/COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/03-21-2020.csv</div>
+      
+      <div>COVID stats are based upon Johns Hopkins data at <a href="https://github.com/CSSEGISandData/COVID-19">https://github.com/CSSEGISandData/COVID-19</a> collated with 2019 statistics kept at <a href="https://github.com/samayo/country-json">https://github.com/samayo/country-json</a></div>
+      
+      <div id="font-guide" class="font-guide-component">
+         
+         <div class="input-label">Font Guide Search + Filter</div>
+         <input class="search" type="search" data-column="all" />
+         
+         <table class="tablesorter search" id="font-table">
+            
+            <thead>
+               
+               <tr>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">grouped by area</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">items</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Confirmed</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Deaths</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Recovered</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">population</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">confirmed per mil</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">deaths per mil</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">recovered per mil</td>
+               </tr>
+               </thead>
+            
+            <tbody>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>61.00</td>
+                  <td>1</td>
+                  <td>144</td>
+                  <td>20</td>
+                  <td>4</td>
+                  <td>33400</td>
+                  <td>4311.38</td>
+                  <td>598.80</td>
+                  <td>119.76</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>103000.00</td>
+                  <td>1</td>
+                  <td>473</td>
+                  <td>1</td>
+                  <td>22</td>
+                  <td>335025</td>
+                  <td>1411.83</td>
+                  <td>2.98</td>
+                  <td>65.67</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>2586.00</td>
+                  <td>1</td>
+                  <td>670</td>
+                  <td>8</td>
+                  <td>0</td>
+                  <td>583455</td>
+                  <td>1148.33</td>
+                  <td>13.71</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>468.00</td>
+                  <td>1</td>
+                  <td>88</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>76965</td>
+                  <td>1143.38</td>
+                  <td>0.00</td>
+                  <td>12.99</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>0.40</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>1000</td>
+                  <td>1000.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>160.00</td>
+                  <td>1</td>
+                  <td>37</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>37922</td>
+                  <td>975.69</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>301316.00</td>
+                  <td>1</td>
+                  <td>53578</td>
+                  <td>4825</td>
+                  <td>6072</td>
+                  <td>59359900</td>
+                  <td>902.60</td>
+                  <td>81.28</td>
+                  <td>102.29</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>41284.00</td>
+                  <td>1</td>
+                  <td>6575</td>
+                  <td>75</td>
+                  <td>15</td>
+                  <td>8476005</td>
+                  <td>775.72</td>
+                  <td>8.85</td>
+                  <td>1.77</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>505992.00</td>
+                  <td>1</td>
+                  <td>25374</td>
+                  <td>1375</td>
+                  <td>2125</td>
+                  <td>46354321</td>
+                  <td>547.39</td>
+                  <td>29.66</td>
+                  <td>45.84</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>323877.00</td>
+                  <td>1</td>
+                  <td>2118</td>
+                  <td>7</td>
+                  <td>1</td>
+                  <td>5305383</td>
+                  <td>399.22</td>
+                  <td>1.32</td>
+                  <td>0.19</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>83859.00</td>
+                  <td>1</td>
+                  <td>2814</td>
+                  <td>8</td>
+                  <td>9</td>
+                  <td>8735453</td>
+                  <td>322.14</td>
+                  <td>0.92</td>
+                  <td>1.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1.50</td>
+                  <td>1</td>
+                  <td>11</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>38695</td>
+                  <td>284.27</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>357022.00</td>
+                  <td>1</td>
+                  <td>22213</td>
+                  <td>84</td>
+                  <td>233</td>
+                  <td>82114224</td>
+                  <td>270.51</td>
+                  <td>1.02</td>
+                  <td>2.84</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1648195.00</td>
+                  <td>1</td>
+                  <td>20610</td>
+                  <td>1556</td>
+                  <td>7635</td>
+                  <td>81162788</td>
+                  <td>253.93</td>
+                  <td>19.17</td>
+                  <td>94.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>43094.00</td>
+                  <td>3</td>
+                  <td>1420</td>
+                  <td>13</td>
+                  <td>1</td>
+                  <td>5733551</td>
+                  <td>247.67</td>
+                  <td>2.27</td>
+                  <td>0.17</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>30518.00</td>
+                  <td>1</td>
+                  <td>2815</td>
+                  <td>67</td>
+                  <td>263</td>
+                  <td>11429336</td>
+                  <td>246.30</td>
+                  <td>5.86</td>
+                  <td>23.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>45227.00</td>
+                  <td>1</td>
+                  <td>306</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1309632</td>
+                  <td>233.65</td>
+                  <td>0.00</td>
+                  <td>0.76</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>551500.00</td>
+                  <td>9</td>
+                  <td>14308</td>
+                  <td>562</td>
+                  <td>12</td>
+                  <td>64979548</td>
+                  <td>220.19</td>
+                  <td>8.65</td>
+                  <td>0.18</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>41526.00</td>
+                  <td>4</td>
+                  <td>3640</td>
+                  <td>137</td>
+                  <td>2</td>
+                  <td>17035938</td>
+                  <td>213.67</td>
+                  <td>8.04</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>694.00</td>
+                  <td>1</td>
+                  <td>305</td>
+                  <td>1</td>
+                  <td>125</td>
+                  <td>1492584</td>
+                  <td>204.34</td>
+                  <td>0.67</td>
+                  <td>83.75</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>5765.00</td>
+                  <td>1</td>
+                  <td>83</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>428697</td>
+                  <td>193.61</td>
+                  <td>0.00</td>
+                  <td>4.67</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>20256.00</td>
+                  <td>1</td>
+                  <td>383</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>2079976</td>
+                  <td>184.14</td>
+                  <td>0.48</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>11000.00</td>
+                  <td>1</td>
+                  <td>481</td>
+                  <td>0</td>
+                  <td>27</td>
+                  <td>2639211</td>
+                  <td>182.25</td>
+                  <td>0.00</td>
+                  <td>10.23</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>449964.00</td>
+                  <td>1</td>
+                  <td>1763</td>
+                  <td>20</td>
+                  <td>16</td>
+                  <td>9910701</td>
+                  <td>177.89</td>
+                  <td>2.02</td>
+                  <td>1.61</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>99434.00</td>
+                  <td>1</td>
+                  <td>8799</td>
+                  <td>102</td>
+                  <td>1540</td>
+                  <td>50982212</td>
+                  <td>172.59</td>
+                  <td>2.00</td>
+                  <td>30.21</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>316.00</td>
+                  <td>1</td>
+                  <td>73</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>430835</td>
+                  <td>169.44</td>
+                  <td>0.00</td>
+                  <td>4.64</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>70273.00</td>
+                  <td>1</td>
+                  <td>785</td>
+                  <td>3</td>
+                  <td>5</td>
+                  <td>4761657</td>
+                  <td>164.86</td>
+                  <td>0.63</td>
+                  <td>1.05</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>91982.00</td>
+                  <td>1</td>
+                  <td>1280</td>
+                  <td>12</td>
+                  <td>5</td>
+                  <td>10329506</td>
+                  <td>123.92</td>
+                  <td>1.16</td>
+                  <td>0.48</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1705.00</td>
+                  <td>1</td>
+                  <td>53</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>449568</td>
+                  <td>117.89</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>21056.00</td>
+                  <td>1</td>
+                  <td>883</td>
+                  <td>1</td>
+                  <td>36</td>
+                  <td>8321570</td>
+                  <td>106.11</td>
+                  <td>0.12</td>
+                  <td>4.33</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>338145.00</td>
+                  <td>1</td>
+                  <td>523</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5523231</td>
+                  <td>94.69</td>
+                  <td>0.18</td>
+                  <td>1.81</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>78866.00</td>
+                  <td>1</td>
+                  <td>995</td>
+                  <td>0</td>
+                  <td>6</td>
+                  <td>10618303</td>
+                  <td>93.71</td>
+                  <td>0.00</td>
+                  <td>0.57</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1102.00</td>
+                  <td>1</td>
+                  <td>32</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>384896</td>
+                  <td>83.14</td>
+                  <td>2.60</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>9363520.00</td>
+                  <td>57</td>
+                  <td>25493</td>
+                  <td>307</td>
+                  <td>171</td>
+                  <td>324459463</td>
+                  <td>78.57</td>
+                  <td>0.95</td>
+                  <td>0.53</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>242900.00</td>
+                  <td>7</td>
+                  <td>5067</td>
+                  <td>234</td>
+                  <td>67</td>
+                  <td>66181585</td>
+                  <td>76.56</td>
+                  <td>3.54</td>
+                  <td>1.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>618.00</td>
+                  <td>1</td>
+                  <td>432</td>
+                  <td>2</td>
+                  <td>140</td>
+                  <td>5708844</td>
+                  <td>75.67</td>
+                  <td>0.35</td>
+                  <td>24.52</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>455.00</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>94737</td>
+                  <td>73.89</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>9251.00</td>
+                  <td>1</td>
+                  <td>84</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>1179551</td>
+                  <td>71.21</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>2510.00</td>
+                  <td>1</td>
+                  <td>45</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>699000</td>
+                  <td>64.38</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>90000.00</td>
+                  <td>1</td>
+                  <td>18</td>
+                  <td>0</td>
+                  <td>6</td>
+                  <td>282731</td>
+                  <td>63.66</td>
+                  <td>0.00</td>
+                  <td>21.22</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>64589.00</td>
+                  <td>1</td>
+                  <td>124</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1949670</td>
+                  <td>63.60</td>
+                  <td>0.00</td>
+                  <td>0.51</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>9572900.00</td>
+                  <td>33</td>
+                  <td>81305</td>
+                  <td>3259</td>
+                  <td>71857</td>
+                  <td>1409517397</td>
+                  <td>57.68</td>
+                  <td>2.31</td>
+                  <td>50.98</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>29800.00</td>
+                  <td>1</td>
+                  <td>160</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>2930450</td>
+                  <td>54.60</td>
+                  <td>0.00</td>
+                  <td>0.34</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>56538.00</td>
+                  <td>1</td>
+                  <td>206</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>4189353</td>
+                  <td>49.17</td>
+                  <td>0.24</td>
+                  <td>1.19</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>75517.00</td>
+                  <td>1</td>
+                  <td>200</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4098587</td>
+                  <td>48.80</td>
+                  <td>0.24</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>131626.00</td>
+                  <td>1</td>
+                  <td>530</td>
+                  <td>13</td>
+                  <td>19</td>
+                  <td>11159773</td>
+                  <td>47.49</td>
+                  <td>1.16</td>
+                  <td>1.70</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>7741220.00</td>
+                  <td>9</td>
+                  <td>1071</td>
+                  <td>7</td>
+                  <td>26</td>
+                  <td>24450561</td>
+                  <td>43.80</td>
+                  <td>0.29</td>
+                  <td>1.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>17818.00</td>
+                  <td>1</td>
+                  <td>176</td>
+                  <td>0</td>
+                  <td>27</td>
+                  <td>4136528</td>
+                  <td>42.55</td>
+                  <td>0.00</td>
+                  <td>6.53</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>25713.00</td>
+                  <td>1</td>
+                  <td>85</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>2024000</td>
+                  <td>42.00</td>
+                  <td>0.00</td>
+                  <td>0.49</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>329758.00</td>
+                  <td>1</td>
+                  <td>1183</td>
+                  <td>4</td>
+                  <td>114</td>
+                  <td>31624264</td>
+                  <td>37.41</td>
+                  <td>0.13</td>
+                  <td>3.60</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>5130.00</td>
+                  <td>1</td>
+                  <td>49</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1369125</td>
+                  <td>35.79</td>
+                  <td>0.00</td>
+                  <td>0.73</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>9970610.00</td>
+                  <td>12</td>
+                  <td>1278</td>
+                  <td>19</td>
+                  <td>10</td>
+                  <td>36624199</td>
+                  <td>34.89</td>
+                  <td>0.52</td>
+                  <td>0.27</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>49012.00</td>
+                  <td>1</td>
+                  <td>178</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5447662</td>
+                  <td>32.67</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>175016.00</td>
+                  <td>1</td>
+                  <td>110</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3456750</td>
+                  <td>31.82</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>10400.00</td>
+                  <td>1</td>
+                  <td>187</td>
+                  <td>4</td>
+                  <td>4</td>
+                  <td>6082357</td>
+                  <td>30.74</td>
+                  <td>0.66</td>
+                  <td>0.66</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>283561.00</td>
+                  <td>1</td>
+                  <td>506</td>
+                  <td>7</td>
+                  <td>3</td>
+                  <td>16624858</td>
+                  <td>30.44</td>
+                  <td>0.42</td>
+                  <td>0.18</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>298.00</td>
+                  <td>1</td>
+                  <td>13</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>436330</td>
+                  <td>29.79</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>756626.00</td>
+                  <td>1</td>
+                  <td>537</td>
+                  <td>0</td>
+                  <td>6</td>
+                  <td>18054726</td>
+                  <td>29.74</td>
+                  <td>0.00</td>
+                  <td>0.33</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>65301.00</td>
+                  <td>1</td>
+                  <td>83</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>2890297</td>
+                  <td>28.72</td>
+                  <td>0.35</td>
+                  <td>0.35</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>373.00</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>253045</td>
+                  <td>27.66</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>51197.00</td>
+                  <td>1</td>
+                  <td>93</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3507017</td>
+                  <td>26.52</td>
+                  <td>0.29</td>
+                  <td>0.57</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>28748.00</td>
+                  <td>1</td>
+                  <td>76</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>2930187</td>
+                  <td>25.94</td>
+                  <td>0.68</td>
+                  <td>0.68</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>51100.00</td>
+                  <td>1</td>
+                  <td>117</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>4905769</td>
+                  <td>23.85</td>
+                  <td>0.41</td>
+                  <td>0.41</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>110994.00</td>
+                  <td>1</td>
+                  <td>163</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>7084571</td>
+                  <td>23.01</td>
+                  <td>0.42</td>
+                  <td>0.42</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>430.00</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>285719</td>
+                  <td>21.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>33851.00</td>
+                  <td>1</td>
+                  <td>80</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4051212</td>
+                  <td>19.75</td>
+                  <td>0.25</td>
+                  <td>0.25</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>238391.00</td>
+                  <td>1</td>
+                  <td>367</td>
+                  <td>0</td>
+                  <td>52</td>
+                  <td>19679306</td>
+                  <td>18.65</td>
+                  <td>0.00</td>
+                  <td>2.64</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>83600.00</td>
+                  <td>1</td>
+                  <td>153</td>
+                  <td>2</td>
+                  <td>38</td>
+                  <td>9400145</td>
+                  <td>16.28</td>
+                  <td>0.21</td>
+                  <td>4.04</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>323250.00</td>
+                  <td>1</td>
+                  <td>536</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>38170712</td>
+                  <td>14.04</td>
+                  <td>0.13</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>69700.00</td>
+                  <td>1</td>
+                  <td>49</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>3912061</td>
+                  <td>12.53</td>
+                  <td>0.00</td>
+                  <td>0.26</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>2149690.00</td>
+                  <td>1</td>
+                  <td>392</td>
+                  <td>0</td>
+                  <td>16</td>
+                  <td>32938213</td>
+                  <td>11.90</td>
+                  <td>0.00</td>
+                  <td>0.49</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>309500.00</td>
+                  <td>1</td>
+                  <td>52</td>
+                  <td>0</td>
+                  <td>12</td>
+                  <td>4636262</td>
+                  <td>11.22</td>
+                  <td>0.00</td>
+                  <td>2.59</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>622.00</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>178844</td>
+                  <td>11.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>2040.00</td>
+                  <td>1</td>
+                  <td>14</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1265138</td>
+                  <td>11.07</td>
+                  <td>0.79</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>270534.00</td>
+                  <td>1</td>
+                  <td>52</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4705818</td>
+                  <td>11.05</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>93030.00</td>
+                  <td>1</td>
+                  <td>103</td>
+                  <td>4</td>
+                  <td>7</td>
+                  <td>9721559</td>
+                  <td>10.60</td>
+                  <td>0.41</td>
+                  <td>0.72</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>48511.00</td>
+                  <td>1</td>
+                  <td>112</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>10766998</td>
+                  <td>10.40</td>
+                  <td>0.19</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>13878.00</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>395361</td>
+                  <td>10.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1285216.00</td>
+                  <td>1</td>
+                  <td>318</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>32165485</td>
+                  <td>9.89</td>
+                  <td>0.16</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>442.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>102012</td>
+                  <td>9.80</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>388.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>109897</td>
+                  <td>9.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>214969.00</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>777859</td>
+                  <td>9.00</td>
+                  <td>1.29</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>88946.00</td>
+                  <td>1</td>
+                  <td>85</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>9702353</td>
+                  <td>8.76</td>
+                  <td>0.00</td>
+                  <td>0.10</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>774815.00</td>
+                  <td>1</td>
+                  <td>670</td>
+                  <td>9</td>
+                  <td>0</td>
+                  <td>80745020</td>
+                  <td>8.30</td>
+                  <td>0.11</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>207600.00</td>
+                  <td>1</td>
+                  <td>76</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>9468338</td>
+                  <td>8.03</td>
+                  <td>0.00</td>
+                  <td>1.58</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>377829.00</td>
+                  <td>1</td>
+                  <td>1007</td>
+                  <td>35</td>
+                  <td>232</td>
+                  <td>127484450</td>
+                  <td>7.90</td>
+                  <td>0.27</td>
+                  <td>1.82</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>4033.00</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>546388</td>
+                  <td>7.32</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>163265.00</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>563402</td>
+                  <td>7.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>513115.00</td>
+                  <td>1</td>
+                  <td>411</td>
+                  <td>1</td>
+                  <td>42</td>
+                  <td>69037513</td>
+                  <td>5.95</td>
+                  <td>0.01</td>
+                  <td>0.61</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>438317.00</td>
+                  <td>1</td>
+                  <td>214</td>
+                  <td>17</td>
+                  <td>51</td>
+                  <td>38274618</td>
+                  <td>5.59</td>
+                  <td>0.44</td>
+                  <td>1.33</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>10990.00</td>
+                  <td>1</td>
+                  <td>16</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>2890299</td>
+                  <td>5.54</td>
+                  <td>0.35</td>
+                  <td>0.69</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>86600.00</td>
+                  <td>1</td>
+                  <td>53</td>
+                  <td>1</td>
+                  <td>11</td>
+                  <td>9827589</td>
+                  <td>5.39</td>
+                  <td>0.10</td>
+                  <td>1.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>163610.00</td>
+                  <td>1</td>
+                  <td>60</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>11532127</td>
+                  <td>5.20</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>342000.00</td>
+                  <td>2</td>
+                  <td>26</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5260750</td>
+                  <td>4.94</td>
+                  <td>0.19</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>8547403.00</td>
+                  <td>1</td>
+                  <td>1021</td>
+                  <td>15</td>
+                  <td>2</td>
+                  <td>209288278</td>
+                  <td>4.88</td>
+                  <td>0.07</td>
+                  <td>0.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>28051.00</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>1267689</td>
+                  <td>4.73</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1221037.00</td>
+                  <td>1</td>
+                  <td>240</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56717156</td>
+                  <td>4.23</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1138914.00</td>
+                  <td>1</td>
+                  <td>196</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>49065615</td>
+                  <td>3.99</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>796095.00</td>
+                  <td>1</td>
+                  <td>730</td>
+                  <td>3</td>
+                  <td>13</td>
+                  <td>197015955</td>
+                  <td>3.71</td>
+                  <td>0.02</td>
+                  <td>0.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>2780400.00</td>
+                  <td>1</td>
+                  <td>158</td>
+                  <td>4</td>
+                  <td>3</td>
+                  <td>44271041</td>
+                  <td>3.57</td>
+                  <td>0.09</td>
+                  <td>0.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>2381741.00</td>
+                  <td>1</td>
+                  <td>139</td>
+                  <td>15</td>
+                  <td>32</td>
+                  <td>41318142</td>
+                  <td>3.36</td>
+                  <td>0.36</td>
+                  <td>0.77</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>274000.00</td>
+                  <td>1</td>
+                  <td>64</td>
+                  <td>2</td>
+                  <td>5</td>
+                  <td>19193382</td>
+                  <td>3.33</td>
+                  <td>0.10</td>
+                  <td>0.26</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>181035.00</td>
+                  <td>1</td>
+                  <td>53</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>16005373</td>
+                  <td>3.31</td>
+                  <td>0.00</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1566500.00</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3075647</td>
+                  <td>3.25</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1001449.00</td>
+                  <td>1</td>
+                  <td>294</td>
+                  <td>10</td>
+                  <td>41</td>
+                  <td>97553151</td>
+                  <td>3.01</td>
+                  <td>0.10</td>
+                  <td>0.42</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>196722.00</td>
+                  <td>1</td>
+                  <td>47</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>15850567</td>
+                  <td>2.97</td>
+                  <td>0.00</td>
+                  <td>0.32</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>300000.00</td>
+                  <td>1</td>
+                  <td>307</td>
+                  <td>19</td>
+                  <td>13</td>
+                  <td>104918090</td>
+                  <td>2.93</td>
+                  <td>0.18</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>2724900.00</td>
+                  <td>1</td>
+                  <td>53</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>18204499</td>
+                  <td>2.91</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>446550.00</td>
+                  <td>1</td>
+                  <td>96</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>35739580</td>
+                  <td>2.69</td>
+                  <td>0.08</td>
+                  <td>0.08</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>406752.00</td>
+                  <td>1</td>
+                  <td>18</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>6811297</td>
+                  <td>2.64</td>
+                  <td>0.15</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>112088.00</td>
+                  <td>1</td>
+                  <td>24</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>9265067</td>
+                  <td>2.59</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>47000.00</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>807610</td>
+                  <td>2.48</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>199900.00</td>
+                  <td>1</td>
+                  <td>14</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>6045117</td>
+                  <td>2.32</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>912050.00</td>
+                  <td>1</td>
+                  <td>70</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>31977065</td>
+                  <td>2.19</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>17075400.00</td>
+                  <td>1</td>
+                  <td>306</td>
+                  <td>1</td>
+                  <td>12</td>
+                  <td>143989754</td>
+                  <td>2.13</td>
+                  <td>0.01</td>
+                  <td>0.08</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>56785.00</td>
+                  <td>1</td>
+                  <td>16</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>7797694</td>
+                  <td>2.05</td>
+                  <td>0.00</td>
+                  <td>0.13</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>267668.00</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>2025137</td>
+                  <td>1.98</td>
+                  <td>0.49</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>110861.00</td>
+                  <td>1</td>
+                  <td>21</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>11484636</td>
+                  <td>1.83</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1098581.00</td>
+                  <td>1</td>
+                  <td>19</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>11051600</td>
+                  <td>1.72</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1904569.00</td>
+                  <td>1</td>
+                  <td>450</td>
+                  <td>38</td>
+                  <td>15</td>
+                  <td>263991379</td>
+                  <td>1.70</td>
+                  <td>0.14</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1958201.00</td>
+                  <td>1</td>
+                  <td>203</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>129163276</td>
+                  <td>1.57</td>
+                  <td>0.02</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>26338.00</td>
+                  <td>1</td>
+                  <td>17</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>12208407</td>
+                  <td>1.39</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>447400.00</td>
+                  <td>1</td>
+                  <td>43</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>31910641</td>
+                  <td>1.35</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>824292.00</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>2533794</td>
+                  <td>1.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>475442.00</td>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>24053727</td>
+                  <td>1.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>18274.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>905502</td>
+                  <td>1.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>603700.00</td>
+                  <td>1</td>
+                  <td>47</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>44222947</td>
+                  <td>1.06</td>
+                  <td>0.07</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>23200.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>956985</td>
+                  <td>1.04</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>108889.00</td>
+                  <td>1</td>
+                  <td>17</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>16913503</td>
+                  <td>1.01</td>
+                  <td>0.06</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>331689.00</td>
+                  <td>1</td>
+                  <td>94</td>
+                  <td>0</td>
+                  <td>17</td>
+                  <td>95540800</td>
+                  <td>0.98</td>
+                  <td>0.00</td>
+                  <td>0.18</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>14874.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>1296311</td>
+                  <td>0.77</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>652090.00</td>
+                  <td>1</td>
+                  <td>24</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>35530081</td>
+                  <td>0.68</td>
+                  <td>0.00</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>238533.00</td>
+                  <td>1</td>
+                  <td>19</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>28833629</td>
+                  <td>0.66</td>
+                  <td>0.03</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>622984.00</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4659080</td>
+                  <td>0.64</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>111369.00</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4731906</td>
+                  <td>0.63</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>322463.00</td>
+                  <td>1</td>
+                  <td>14</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>24294750</td>
+                  <td>0.58</td>
+                  <td>0.00</td>
+                  <td>0.04</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>11295.00</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>2100568</td>
+                  <td>0.48</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>21041.00</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>6377853</td>
+                  <td>0.47</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1025520.00</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4420184</td>
+                  <td>0.45</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>130000.00</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>6217581</td>
+                  <td>0.32</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>3287263.00</td>
+                  <td>1</td>
+                  <td>330</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339180127</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>117600.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>5068831</td>
+                  <td>0.20</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>390757.00</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>16529904</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>112622.00</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>11175692</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>27750.00</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>10981229</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>245857.00</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>12717176</td>
+                  <td>0.16</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>143998.00</td>
+                  <td>1</td>
+                  <td>25</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>164669751</td>
+                  <td>0.15</td>
+                  <td>0.01</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>580367.00</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>49699862</td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>923768.00</td>
+                  <td>1</td>
+                  <td>22</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>190886311</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>587041.00</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>25570895</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>752618.00</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>17094130</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>462840.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>8251162</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>883749.00</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1104300.00</td>
+                  <td>1</td>
+                  <td>9</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>104957438</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1246700.00</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>29784193</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1284000.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>14899994</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>637657.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>14742523</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1886068.00</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>40533330</td>
+                  <td>0.05</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1267000.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>21477348</td>
+                  <td>0.05</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>147181.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>29304998</td>
+                  <td>0.03</td>
+                  <td>0.00</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>241038.00</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>42862958</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>2166090.00</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56480</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>549.00</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>164229</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>8875.00</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3663131</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td></td>
+                  <td>8</td>
+                  <td>900</td>
+                  <td>9</td>
+                  <td>326</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>36188.00</td>
+                  <td>1</td>
+                  <td>153</td>
+                  <td>2</td>
+                  <td>28</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>65610.00</td>
+                  <td>1</td>
+                  <td>77</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+            </tbody>
+            </table>
+         </div>
+      </body>
+   </html>

@@ -1,0 +1,96 @@
+<?xml version="1.1" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:gpo="http://www.gpo.gov" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:file="http://expath.org/ns/file" xmlns:ucd="http://www.unicode.org/ns/2003/ucd/1.0" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+   
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      
+      
+      <title>Covid Analysis</title>
+      
+      <link rel="stylesheet" href="js/tablesorter/css/theme.default.css" type="text/css" />
+      <script src="js/jquery-3.4.1.min.js"></script>
+      <script type="text/javascript" src="js/tablesorter/js/jquery.tablesorter.combined.js"></script>
+      <script>
+         $(function(){
+         $('table.search').tablesorter({
+         widgets: ["filter"],
+         widgetOptions : {
+         filter_external : '.search',
+         filter_defaultFilter: { 1 : '~{query}' },
+         filter_columnFilters: false,
+         filter_placeholder: { search : 'Search...' },
+         filter_saveFilters : true,
+         filter_reset: '.reset'
+         }
+         });
+         $('table').tablesorter({
+         });
+         $('button[data-column]').on('click', function(){
+         var $this = $(this),
+         totalColumns = $table[0].config.columns,
+         col = $this.data('column'), // zero-based index or "all"
+         filter = [];
+         filter[ col === 'all' ? totalColumns : col ] = $this.text();
+         $table.trigger('search', [ filter ]);
+         return false;
+         });
+         });
+      </script>
+      </head>
+   
+   <body>
+      
+      <h1>COVID-19 analysis</h1>
+      <div xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Built 2020-03-22T06:17:24.966-04:00 from data at file:/U:/COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/03-21-2020.csv</div>
+      
+      <div>COVID stats are based upon Johns Hopkins data at <a href="https://github.com/CSSEGISandData/COVID-19">https://github.com/CSSEGISandData/COVID-19</a> collated with 2019 statistics kept at <a href="https://github.com/samayo/country-json">https://github.com/samayo/country-json</a></div>
+      
+      <div id="font-guide" class="font-guide-component">
+         
+         <div class="input-label">Font Guide Search + Filter</div>
+         <input class="search" type="search" data-column="all" />
+         
+         <table class="tablesorter search" id="font-table">
+            
+            <thead>
+               
+               <tr>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">grouped by landlocked</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">items</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Confirmed</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Deaths</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Recovered</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">population</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">confirmed per mil</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">deaths per mil</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">recovered per mil</td>
+               </tr>
+               </thead>
+            
+            <tbody>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td></td>
+                  <td>272</td>
+                  <td>292185</td>
+                  <td>12852</td>
+                  <td>91598</td>
+                  <td>6668931636</td>
+                  <td>43.81</td>
+                  <td>1.93</td>
+                  <td>13.74</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>1</td>
+                  <td>32</td>
+                  <td>12343</td>
+                  <td>121</td>
+                  <td>78</td>
+                  <td>468656444</td>
+                  <td>26.34</td>
+                  <td>0.26</td>
+                  <td>0.17</td>
+               </tr>
+            </tbody>
+            </table>
+         </div>
+      </body>
+   </html>
