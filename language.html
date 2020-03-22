@@ -1,0 +1,4408 @@
+<?xml version="1.1" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:gpo="http://www.gpo.gov" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:file="http://expath.org/ns/file" xmlns:ucd="http://www.unicode.org/ns/2003/ucd/1.0" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+   
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      
+      
+      <title>Covid Analysis</title>
+      
+      <link rel="stylesheet" href="js/tablesorter/css/theme.default.css" type="text/css" />
+      <script src="js/jquery-3.4.1.min.js"></script>
+      <script type="text/javascript" src="js/tablesorter/js/jquery.tablesorter.combined.js"></script>
+      <script>
+         $(function(){
+         $('table.search').tablesorter({
+         widgets: ["filter"],
+         widgetOptions : {
+         filter_external : '.search',
+         filter_defaultFilter: { 1 : '~{query}' },
+         filter_columnFilters: false,
+         filter_placeholder: { search : 'Search...' },
+         filter_saveFilters : true,
+         filter_reset: '.reset'
+         }
+         });
+         $('table').tablesorter({
+         });
+         $('button[data-column]').on('click', function(){
+         var $this = $(this),
+         totalColumns = $table[0].config.columns,
+         col = $this.data('column'), // zero-based index or "all"
+         filter = [];
+         filter[ col === 'all' ? totalColumns : col ] = $this.text();
+         $table.trigger('search', [ filter ]);
+         return false;
+         });
+         });
+      </script>
+      </head>
+   
+   <body>
+      
+      <h1>COVID-19 analysis</h1>
+      <div xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Built 2020-03-22T05:34:15.486-04:00 from data at file:/U:/COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/03-21-2020.csv</div>
+      
+      <div>COVID stats are based upon Johns Hopkins data at <a href="https://github.com/CSSEGISandData/COVID-19">https://github.com/CSSEGISandData/COVID-19</a> collated with 2019 statistics kept at <a href="https://github.com/samayo/country-json">https://github.com/samayo/country-json</a></div>
+      
+      <div id="font-guide" class="font-guide-component">
+         
+         <div class="input-label">Font Guide Search + Filter</div>
+         <input class="search" type="search" data-column="all" />
+         
+         <table class="tablesorter search" id="font-table">
+            
+            <thead>
+               
+               <tr>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">grouped by language</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">items</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Confirmed</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Deaths</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Recovered</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">population</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">confirmed per mil</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">deaths per mil</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">recovered per mil</td>
+               </tr>
+               </thead>
+            
+            <tbody>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Friuli</td>
+                  <td>1</td>
+                  <td>53578</td>
+                  <td>4825</td>
+                  <td>6072</td>
+                  <td>59359900</td>
+                  <td>902.60</td>
+                  <td>81.28</td>
+                  <td>102.29</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sardinian</td>
+                  <td>1</td>
+                  <td>53578</td>
+                  <td>4825</td>
+                  <td>6072</td>
+                  <td>59359900</td>
+                  <td>902.60</td>
+                  <td>81.28</td>
+                  <td>102.29</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Albaniana</td>
+                  <td>2</td>
+                  <td>53654</td>
+                  <td>4827</td>
+                  <td>6074</td>
+                  <td>62290087</td>
+                  <td>861.36</td>
+                  <td>77.49</td>
+                  <td>97.51</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Slovene</td>
+                  <td>4</td>
+                  <td>56981</td>
+                  <td>4835</td>
+                  <td>6086</td>
+                  <td>74364682</td>
+                  <td>766.24</td>
+                  <td>65.02</td>
+                  <td>81.84</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Romani</td>
+                  <td>6</td>
+                  <td>55384</td>
+                  <td>4833</td>
+                  <td>6140</td>
+                  <td>111911301</td>
+                  <td>494.89</td>
+                  <td>43.19</td>
+                  <td>54.86</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Basque</td>
+                  <td>1</td>
+                  <td>25374</td>
+                  <td>1375</td>
+                  <td>2125</td>
+                  <td>46354321</td>
+                  <td>547.39</td>
+                  <td>29.66</td>
+                  <td>45.84</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Galecian</td>
+                  <td>1</td>
+                  <td>25374</td>
+                  <td>1375</td>
+                  <td>2125</td>
+                  <td>46354321</td>
+                  <td>547.39</td>
+                  <td>29.66</td>
+                  <td>45.84</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Catalan</td>
+                  <td>2</td>
+                  <td>25462</td>
+                  <td>1375</td>
+                  <td>2126</td>
+                  <td>46431286</td>
+                  <td>548.38</td>
+                  <td>29.61</td>
+                  <td>45.79</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bakhtyari</td>
+                  <td>1</td>
+                  <td>20610</td>
+                  <td>1556</td>
+                  <td>7635</td>
+                  <td>81162788</td>
+                  <td>253.93</td>
+                  <td>19.17</td>
+                  <td>94.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gilaki</td>
+                  <td>1</td>
+                  <td>20610</td>
+                  <td>1556</td>
+                  <td>7635</td>
+                  <td>81162788</td>
+                  <td>253.93</td>
+                  <td>19.17</td>
+                  <td>94.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Luri</td>
+                  <td>1</td>
+                  <td>20610</td>
+                  <td>1556</td>
+                  <td>7635</td>
+                  <td>81162788</td>
+                  <td>253.93</td>
+                  <td>19.17</td>
+                  <td>94.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mazandarani</td>
+                  <td>1</td>
+                  <td>20610</td>
+                  <td>1556</td>
+                  <td>7635</td>
+                  <td>81162788</td>
+                  <td>253.93</td>
+                  <td>19.17</td>
+                  <td>94.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Luxembourgish</td>
+                  <td>1</td>
+                  <td>670</td>
+                  <td>8</td>
+                  <td>0</td>
+                  <td>583455</td>
+                  <td>1148.33</td>
+                  <td>13.71</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Turkmenian</td>
+                  <td>2</td>
+                  <td>20634</td>
+                  <td>1556</td>
+                  <td>7636</td>
+                  <td>116692869</td>
+                  <td>176.82</td>
+                  <td>13.33</td>
+                  <td>65.44</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Persian</td>
+                  <td>2</td>
+                  <td>20824</td>
+                  <td>1573</td>
+                  <td>7686</td>
+                  <td>119437406</td>
+                  <td>174.35</td>
+                  <td>13.17</td>
+                  <td>64.35</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Azerbaijani</td>
+                  <td>5</td>
+                  <td>21086</td>
+                  <td>1574</td>
+                  <td>7699</td>
+                  <td>136107506</td>
+                  <td>154.92</td>
+                  <td>11.56</td>
+                  <td>56.57</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>French</td>
+                  <td>93</td>
+                  <td>105138</td>
+                  <td>5869</td>
+                  <td>6548</td>
+                  <td>563317838</td>
+                  <td>186.64</td>
+                  <td>10.42</td>
+                  <td>11.62</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Romansh</td>
+                  <td>1</td>
+                  <td>6575</td>
+                  <td>75</td>
+                  <td>15</td>
+                  <td>8476005</td>
+                  <td>775.72</td>
+                  <td>8.85</td>
+                  <td>1.77</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Fries</td>
+                  <td>4</td>
+                  <td>3640</td>
+                  <td>137</td>
+                  <td>2</td>
+                  <td>17035938</td>
+                  <td>213.67</td>
+                  <td>8.04</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kurdish</td>
+                  <td>3</td>
+                  <td>21494</td>
+                  <td>1582</td>
+                  <td>7686</td>
+                  <td>200182426</td>
+                  <td>107.37</td>
+                  <td>7.90</td>
+                  <td>38.39</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Italian</td>
+                  <td>98</td>
+                  <td>129373</td>
+                  <td>5993</td>
+                  <td>6811</td>
+                  <td>866147027</td>
+                  <td>149.37</td>
+                  <td>6.92</td>
+                  <td>7.86</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>German</td>
+                  <td>96</td>
+                  <td>121060</td>
+                  <td>5438</td>
+                  <td>6868</td>
+                  <td>877031817</td>
+                  <td>138.03</td>
+                  <td>6.20</td>
+                  <td>7.83</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Balochi</td>
+                  <td>4</td>
+                  <td>21416</td>
+                  <td>1559</td>
+                  <td>7661</td>
+                  <td>318345086</td>
+                  <td>67.27</td>
+                  <td>4.90</td>
+                  <td>24.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td></td>
+                  <td>9</td>
+                  <td>985</td>
+                  <td>9</td>
+                  <td>327</td>
+                  <td>2024000</td>
+                  <td>486.66</td>
+                  <td>4.45</td>
+                  <td>161.56</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Arabic</td>
+                  <td>48</td>
+                  <td>50019</td>
+                  <td>2427</td>
+                  <td>8368</td>
+                  <td>674445703</td>
+                  <td>74.16</td>
+                  <td>3.60</td>
+                  <td>12.41</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gaeli</td>
+                  <td>7</td>
+                  <td>5067</td>
+                  <td>234</td>
+                  <td>67</td>
+                  <td>66181585</td>
+                  <td>76.56</td>
+                  <td>3.54</td>
+                  <td>1.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kymri</td>
+                  <td>7</td>
+                  <td>5067</td>
+                  <td>234</td>
+                  <td>67</td>
+                  <td>66181585</td>
+                  <td>76.56</td>
+                  <td>3.54</td>
+                  <td>1.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Dutch</td>
+                  <td>17</td>
+                  <td>7733</td>
+                  <td>223</td>
+                  <td>275</td>
+                  <td>65089473</td>
+                  <td>118.81</td>
+                  <td>3.43</td>
+                  <td>4.22</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Turkish</td>
+                  <td>24</td>
+                  <td>48694</td>
+                  <td>896</td>
+                  <td>542</td>
+                  <td>290234887</td>
+                  <td>167.77</td>
+                  <td>3.09</td>
+                  <td>1.87</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Icelandic</td>
+                  <td>1</td>
+                  <td>473</td>
+                  <td>1</td>
+                  <td>22</td>
+                  <td>335025</td>
+                  <td>1411.83</td>
+                  <td>2.98</td>
+                  <td>65.67</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Spanish</td>
+                  <td>100</td>
+                  <td>70935</td>
+                  <td>2309</td>
+                  <td>2355</td>
+                  <td>898740035</td>
+                  <td>78.93</td>
+                  <td>2.57</td>
+                  <td>2.62</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Dong</td>
+                  <td>33</td>
+                  <td>81305</td>
+                  <td>3259</td>
+                  <td>71857</td>
+                  <td>1409517397</td>
+                  <td>57.68</td>
+                  <td>2.31</td>
+                  <td>50.98</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hui</td>
+                  <td>33</td>
+                  <td>81305</td>
+                  <td>3259</td>
+                  <td>71857</td>
+                  <td>1409517397</td>
+                  <td>57.68</td>
+                  <td>2.31</td>
+                  <td>50.98</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mant&#x9a;u</td>
+                  <td>33</td>
+                  <td>81305</td>
+                  <td>3259</td>
+                  <td>71857</td>
+                  <td>1409517397</td>
+                  <td>57.68</td>
+                  <td>2.31</td>
+                  <td>50.98</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mongolian</td>
+                  <td>34</td>
+                  <td>81315</td>
+                  <td>3259</td>
+                  <td>71857</td>
+                  <td>1412593044</td>
+                  <td>57.56</td>
+                  <td>2.31</td>
+                  <td>50.87</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Puyi</td>
+                  <td>33</td>
+                  <td>81305</td>
+                  <td>3259</td>
+                  <td>71857</td>
+                  <td>1409517397</td>
+                  <td>57.68</td>
+                  <td>2.31</td>
+                  <td>50.98</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tibetan</td>
+                  <td>33</td>
+                  <td>81305</td>
+                  <td>3259</td>
+                  <td>71857</td>
+                  <td>1409517397</td>
+                  <td>57.68</td>
+                  <td>2.31</td>
+                  <td>50.98</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tujia</td>
+                  <td>33</td>
+                  <td>81305</td>
+                  <td>3259</td>
+                  <td>71857</td>
+                  <td>1409517397</td>
+                  <td>57.68</td>
+                  <td>2.31</td>
+                  <td>50.98</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Uighur</td>
+                  <td>33</td>
+                  <td>81305</td>
+                  <td>3259</td>
+                  <td>71857</td>
+                  <td>1409517397</td>
+                  <td>57.68</td>
+                  <td>2.31</td>
+                  <td>50.98</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Yi</td>
+                  <td>33</td>
+                  <td>81305</td>
+                  <td>3259</td>
+                  <td>71857</td>
+                  <td>1409517397</td>
+                  <td>57.68</td>
+                  <td>2.31</td>
+                  <td>50.98</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Zhuang</td>
+                  <td>33</td>
+                  <td>81305</td>
+                  <td>3259</td>
+                  <td>71857</td>
+                  <td>1409517397</td>
+                  <td>57.68</td>
+                  <td>2.31</td>
+                  <td>50.98</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Miao</td>
+                  <td>34</td>
+                  <td>81399</td>
+                  <td>3259</td>
+                  <td>71874</td>
+                  <td>1505058197</td>
+                  <td>54.08</td>
+                  <td>2.17</td>
+                  <td>47.75</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Norwegian</td>
+                  <td>5</td>
+                  <td>5301</td>
+                  <td>40</td>
+                  <td>18</td>
+                  <td>20949635</td>
+                  <td>253.04</td>
+                  <td>1.91</td>
+                  <td>0.86</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Danish</td>
+                  <td>5</td>
+                  <td>3538</td>
+                  <td>20</td>
+                  <td>2</td>
+                  <td>11095414</td>
+                  <td>318.87</td>
+                  <td>1.80</td>
+                  <td>0.18</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Chinese</td>
+                  <td>112</td>
+                  <td>120300</td>
+                  <td>3731</td>
+                  <td>74128</td>
+                  <td>2173017981</td>
+                  <td>55.36</td>
+                  <td>1.72</td>
+                  <td>34.11</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Swedish</td>
+                  <td>6</td>
+                  <td>5824</td>
+                  <td>41</td>
+                  <td>28</td>
+                  <td>26472866</td>
+                  <td>220.00</td>
+                  <td>1.55</td>
+                  <td>1.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Portuguese</td>
+                  <td>86</td>
+                  <td>44161</td>
+                  <td>924</td>
+                  <td>201</td>
+                  <td>654995410</td>
+                  <td>67.42</td>
+                  <td>1.41</td>
+                  <td>0.31</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Finnish</td>
+                  <td>3</td>
+                  <td>2592</td>
+                  <td>21</td>
+                  <td>27</td>
+                  <td>16743564</td>
+                  <td>154.81</td>
+                  <td>1.25</td>
+                  <td>1.61</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Southern Slavic Languages</td>
+                  <td>2</td>
+                  <td>23976</td>
+                  <td>104</td>
+                  <td>249</td>
+                  <td>92024925</td>
+                  <td>260.54</td>
+                  <td>1.13</td>
+                  <td>2.71</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tagalog</td>
+                  <td>57</td>
+                  <td>25493</td>
+                  <td>307</td>
+                  <td>171</td>
+                  <td>324459463</td>
+                  <td>78.57</td>
+                  <td>0.95</td>
+                  <td>0.53</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Korean</td>
+                  <td>60</td>
+                  <td>35299</td>
+                  <td>444</td>
+                  <td>1943</td>
+                  <td>503090354</td>
+                  <td>70.16</td>
+                  <td>0.88</td>
+                  <td>3.86</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Greek</td>
+                  <td>13</td>
+                  <td>23974</td>
+                  <td>106</td>
+                  <td>280</td>
+                  <td>121834296</td>
+                  <td>196.78</td>
+                  <td>0.87</td>
+                  <td>2.30</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Polish</td>
+                  <td>77</td>
+                  <td>53659</td>
+                  <td>427</td>
+                  <td>448</td>
+                  <td>559253606</td>
+                  <td>95.95</td>
+                  <td>0.76</td>
+                  <td>0.80</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Saame</td>
+                  <td>2</td>
+                  <td>2641</td>
+                  <td>8</td>
+                  <td>11</td>
+                  <td>10828614</td>
+                  <td>243.89</td>
+                  <td>0.74</td>
+                  <td>1.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Vietnamese</td>
+                  <td>68</td>
+                  <td>26711</td>
+                  <td>314</td>
+                  <td>215</td>
+                  <td>460456197</td>
+                  <td>58.01</td>
+                  <td>0.68</td>
+                  <td>0.47</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Irish</td>
+                  <td>1</td>
+                  <td>785</td>
+                  <td>3</td>
+                  <td>5</td>
+                  <td>4761657</td>
+                  <td>164.86</td>
+                  <td>0.63</td>
+                  <td>1.05</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Japanese</td>
+                  <td>60</td>
+                  <td>27521</td>
+                  <td>357</td>
+                  <td>405</td>
+                  <td>661396420</td>
+                  <td>41.61</td>
+                  <td>0.54</td>
+                  <td>0.61</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Eskimo Languages</td>
+                  <td>12</td>
+                  <td>1278</td>
+                  <td>19</td>
+                  <td>10</td>
+                  <td>36624199</td>
+                  <td>34.89</td>
+                  <td>0.52</td>
+                  <td>0.27</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Macedonian</td>
+                  <td>2</td>
+                  <td>239</td>
+                  <td>5</td>
+                  <td>5</td>
+                  <td>10014758</td>
+                  <td>23.86</td>
+                  <td>0.50</td>
+                  <td>0.50</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mpongwe</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>2025137</td>
+                  <td>1.98</td>
+                  <td>0.49</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Punu-sira-nzebi</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>2025137</td>
+                  <td>1.98</td>
+                  <td>0.49</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Assyrian</td>
+                  <td>1</td>
+                  <td>214</td>
+                  <td>17</td>
+                  <td>51</td>
+                  <td>38274618</td>
+                  <td>5.59</td>
+                  <td>0.44</td>
+                  <td>1.33</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Czech</td>
+                  <td>2</td>
+                  <td>3809</td>
+                  <td>8</td>
+                  <td>15</td>
+                  <td>19353756</td>
+                  <td>196.81</td>
+                  <td>0.41</td>
+                  <td>0.78</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>English</td>
+                  <td>111</td>
+                  <td>41247</td>
+                  <td>635</td>
+                  <td>829</td>
+                  <td>2057024506</td>
+                  <td>20.05</td>
+                  <td>0.31</td>
+                  <td>0.40</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Serbo-Croatian</td>
+                  <td>14</td>
+                  <td>4944</td>
+                  <td>21</td>
+                  <td>99</td>
+                  <td>68856208</td>
+                  <td>71.80</td>
+                  <td>0.30</td>
+                  <td>1.44</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Canton Chinese</td>
+                  <td>9</td>
+                  <td>1071</td>
+                  <td>7</td>
+                  <td>26</td>
+                  <td>24450561</td>
+                  <td>43.80</td>
+                  <td>0.29</td>
+                  <td>1.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bosnian</td>
+                  <td>1</td>
+                  <td>93</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3507017</td>
+                  <td>26.52</td>
+                  <td>0.29</td>
+                  <td>0.57</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Creole French</td>
+                  <td>9</td>
+                  <td>280</td>
+                  <td>4</td>
+                  <td>6</td>
+                  <td>14422536</td>
+                  <td>19.41</td>
+                  <td>0.28</td>
+                  <td>0.42</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ainu</td>
+                  <td>1</td>
+                  <td>1007</td>
+                  <td>35</td>
+                  <td>232</td>
+                  <td>127484450</td>
+                  <td>7.90</td>
+                  <td>0.27</td>
+                  <td>1.82</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Philippene Languages</td>
+                  <td>2</td>
+                  <td>1007</td>
+                  <td>35</td>
+                  <td>232</td>
+                  <td>127648679</td>
+                  <td>7.89</td>
+                  <td>0.27</td>
+                  <td>1.82</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mbete</td>
+                  <td>3</td>
+                  <td>30</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>7285887</td>
+                  <td>4.12</td>
+                  <td>0.27</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gagauzi</td>
+                  <td>1</td>
+                  <td>80</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4051212</td>
+                  <td>19.75</td>
+                  <td>0.25</td>
+                  <td>0.25</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Cuna</td>
+                  <td>1</td>
+                  <td>200</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4098587</td>
+                  <td>48.80</td>
+                  <td>0.24</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Embera</td>
+                  <td>1</td>
+                  <td>200</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4098587</td>
+                  <td>48.80</td>
+                  <td>0.24</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Guaymí</td>
+                  <td>1</td>
+                  <td>200</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4098587</td>
+                  <td>48.80</td>
+                  <td>0.24</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Berberi</td>
+                  <td>2</td>
+                  <td>235</td>
+                  <td>18</td>
+                  <td>35</td>
+                  <td>77057722</td>
+                  <td>3.05</td>
+                  <td>0.23</td>
+                  <td>0.45</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Lithuanian</td>
+                  <td>2</td>
+                  <td>207</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>4839967</td>
+                  <td>42.77</td>
+                  <td>0.21</td>
+                  <td>0.41</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ket&#x9a;ua</td>
+                  <td>3</td>
+                  <td>843</td>
+                  <td>12</td>
+                  <td>4</td>
+                  <td>59841943</td>
+                  <td>14.09</td>
+                  <td>0.20</td>
+                  <td>0.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Romanian</td>
+                  <td>5</td>
+                  <td>3411</td>
+                  <td>16</td>
+                  <td>70</td>
+                  <td>86410477</td>
+                  <td>39.47</td>
+                  <td>0.19</td>
+                  <td>0.81</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Slovak</td>
+                  <td>3</td>
+                  <td>1276</td>
+                  <td>5</td>
+                  <td>13</td>
+                  <td>25787524</td>
+                  <td>49.48</td>
+                  <td>0.19</td>
+                  <td>0.50</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mboshi</td>
+                  <td>2</td>
+                  <td>26</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5260750</td>
+                  <td>4.94</td>
+                  <td>0.19</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Punu</td>
+                  <td>2</td>
+                  <td>26</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5260750</td>
+                  <td>4.94</td>
+                  <td>0.19</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sango</td>
+                  <td>2</td>
+                  <td>26</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5260750</td>
+                  <td>4.94</td>
+                  <td>0.19</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Teke</td>
+                  <td>2</td>
+                  <td>26</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5260750</td>
+                  <td>4.94</td>
+                  <td>0.19</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bicol</td>
+                  <td>1</td>
+                  <td>307</td>
+                  <td>19</td>
+                  <td>13</td>
+                  <td>104918090</td>
+                  <td>2.93</td>
+                  <td>0.18</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Cebuano</td>
+                  <td>1</td>
+                  <td>307</td>
+                  <td>19</td>
+                  <td>13</td>
+                  <td>104918090</td>
+                  <td>2.93</td>
+                  <td>0.18</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hiligaynon</td>
+                  <td>1</td>
+                  <td>307</td>
+                  <td>19</td>
+                  <td>13</td>
+                  <td>104918090</td>
+                  <td>2.93</td>
+                  <td>0.18</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ilocano</td>
+                  <td>1</td>
+                  <td>307</td>
+                  <td>19</td>
+                  <td>13</td>
+                  <td>104918090</td>
+                  <td>2.93</td>
+                  <td>0.18</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Maguindanao</td>
+                  <td>1</td>
+                  <td>307</td>
+                  <td>19</td>
+                  <td>13</td>
+                  <td>104918090</td>
+                  <td>2.93</td>
+                  <td>0.18</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Maranao</td>
+                  <td>1</td>
+                  <td>307</td>
+                  <td>19</td>
+                  <td>13</td>
+                  <td>104918090</td>
+                  <td>2.93</td>
+                  <td>0.18</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Pampango</td>
+                  <td>1</td>
+                  <td>307</td>
+                  <td>19</td>
+                  <td>13</td>
+                  <td>104918090</td>
+                  <td>2.93</td>
+                  <td>0.18</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Pangasinan</td>
+                  <td>1</td>
+                  <td>307</td>
+                  <td>19</td>
+                  <td>13</td>
+                  <td>104918090</td>
+                  <td>2.93</td>
+                  <td>0.18</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Pilipino</td>
+                  <td>1</td>
+                  <td>307</td>
+                  <td>19</td>
+                  <td>13</td>
+                  <td>104918090</td>
+                  <td>2.93</td>
+                  <td>0.18</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Waray-waray</td>
+                  <td>1</td>
+                  <td>307</td>
+                  <td>19</td>
+                  <td>13</td>
+                  <td>104918090</td>
+                  <td>2.93</td>
+                  <td>0.18</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Czech and Moravian</td>
+                  <td>1</td>
+                  <td>178</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5447662</td>
+                  <td>32.67</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ukrainian and Russian</td>
+                  <td>1</td>
+                  <td>178</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5447662</td>
+                  <td>32.67</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hungarian</td>
+                  <td>7</td>
+                  <td>4887</td>
+                  <td>17</td>
+                  <td>75</td>
+                  <td>100505206</td>
+                  <td>48.62</td>
+                  <td>0.17</td>
+                  <td>0.75</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Estonian</td>
+                  <td>2</td>
+                  <td>829</td>
+                  <td>1</td>
+                  <td>11</td>
+                  <td>6832863</td>
+                  <td>121.33</td>
+                  <td>0.15</td>
+                  <td>1.61</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Armenian</td>
+                  <td>5</td>
+                  <td>534</td>
+                  <td>5</td>
+                  <td>18</td>
+                  <td>32454810</td>
+                  <td>16.45</td>
+                  <td>0.15</td>
+                  <td>0.55</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bahasa</td>
+                  <td>1</td>
+                  <td>450</td>
+                  <td>38</td>
+                  <td>15</td>
+                  <td>263991379</td>
+                  <td>1.70</td>
+                  <td>0.14</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bali</td>
+                  <td>1</td>
+                  <td>450</td>
+                  <td>38</td>
+                  <td>15</td>
+                  <td>263991379</td>
+                  <td>1.70</td>
+                  <td>0.14</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Banja</td>
+                  <td>1</td>
+                  <td>450</td>
+                  <td>38</td>
+                  <td>15</td>
+                  <td>263991379</td>
+                  <td>1.70</td>
+                  <td>0.14</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Batakki</td>
+                  <td>1</td>
+                  <td>450</td>
+                  <td>38</td>
+                  <td>15</td>
+                  <td>263991379</td>
+                  <td>1.70</td>
+                  <td>0.14</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bugi</td>
+                  <td>1</td>
+                  <td>450</td>
+                  <td>38</td>
+                  <td>15</td>
+                  <td>263991379</td>
+                  <td>1.70</td>
+                  <td>0.14</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Javanese</td>
+                  <td>1</td>
+                  <td>450</td>
+                  <td>38</td>
+                  <td>15</td>
+                  <td>263991379</td>
+                  <td>1.70</td>
+                  <td>0.14</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Madura</td>
+                  <td>1</td>
+                  <td>450</td>
+                  <td>38</td>
+                  <td>15</td>
+                  <td>263991379</td>
+                  <td>1.70</td>
+                  <td>0.14</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Minangkabau</td>
+                  <td>1</td>
+                  <td>450</td>
+                  <td>38</td>
+                  <td>15</td>
+                  <td>263991379</td>
+                  <td>1.70</td>
+                  <td>0.14</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sunda</td>
+                  <td>2</td>
+                  <td>451</td>
+                  <td>38</td>
+                  <td>15</td>
+                  <td>265287690</td>
+                  <td>1.70</td>
+                  <td>0.14</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Dusun</td>
+                  <td>1</td>
+                  <td>1183</td>
+                  <td>4</td>
+                  <td>114</td>
+                  <td>31624264</td>
+                  <td>37.41</td>
+                  <td>0.13</td>
+                  <td>3.60</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Iban</td>
+                  <td>1</td>
+                  <td>1183</td>
+                  <td>4</td>
+                  <td>114</td>
+                  <td>31624264</td>
+                  <td>37.41</td>
+                  <td>0.13</td>
+                  <td>3.60</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bulgariana</td>
+                  <td>3</td>
+                  <td>290</td>
+                  <td>7</td>
+                  <td>5</td>
+                  <td>55358730</td>
+                  <td>5.24</td>
+                  <td>0.13</td>
+                  <td>0.09</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Malay</td>
+                  <td>5</td>
+                  <td>2559</td>
+                  <td>45</td>
+                  <td>313</td>
+                  <td>370790697</td>
+                  <td>6.90</td>
+                  <td>0.12</td>
+                  <td>0.84</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hebrew</td>
+                  <td>1</td>
+                  <td>883</td>
+                  <td>1</td>
+                  <td>36</td>
+                  <td>8321570</td>
+                  <td>106.11</td>
+                  <td>0.12</td>
+                  <td>4.33</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sinaberberi</td>
+                  <td>1</td>
+                  <td>294</td>
+                  <td>10</td>
+                  <td>41</td>
+                  <td>97553151</td>
+                  <td>3.01</td>
+                  <td>0.10</td>
+                  <td>0.42</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Busansi</td>
+                  <td>1</td>
+                  <td>64</td>
+                  <td>2</td>
+                  <td>5</td>
+                  <td>19193382</td>
+                  <td>3.33</td>
+                  <td>0.10</td>
+                  <td>0.26</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Dagara</td>
+                  <td>1</td>
+                  <td>64</td>
+                  <td>2</td>
+                  <td>5</td>
+                  <td>19193382</td>
+                  <td>3.33</td>
+                  <td>0.10</td>
+                  <td>0.26</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Dyula</td>
+                  <td>1</td>
+                  <td>64</td>
+                  <td>2</td>
+                  <td>5</td>
+                  <td>19193382</td>
+                  <td>3.33</td>
+                  <td>0.10</td>
+                  <td>0.26</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Lezgian</td>
+                  <td>1</td>
+                  <td>53</td>
+                  <td>1</td>
+                  <td>11</td>
+                  <td>9827589</td>
+                  <td>5.39</td>
+                  <td>0.10</td>
+                  <td>1.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ukrainian</td>
+                  <td>23</td>
+                  <td>3270</td>
+                  <td>30</td>
+                  <td>95</td>
+                  <td>326605683</td>
+                  <td>10.01</td>
+                  <td>0.09</td>
+                  <td>0.29</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Arabic-French</td>
+                  <td>1</td>
+                  <td>60</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>11532127</td>
+                  <td>5.20</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Arabic-French-English</td>
+                  <td>1</td>
+                  <td>60</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>11532127</td>
+                  <td>5.20</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Aimará</td>
+                  <td>3</td>
+                  <td>874</td>
+                  <td>5</td>
+                  <td>7</td>
+                  <td>61271811</td>
+                  <td>14.26</td>
+                  <td>0.08</td>
+                  <td>0.11</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Indian Languages</td>
+                  <td>3</td>
+                  <td>1197</td>
+                  <td>19</td>
+                  <td>11</td>
+                  <td>253842050</td>
+                  <td>4.72</td>
+                  <td>0.07</td>
+                  <td>0.04</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Creole English</td>
+                  <td>12</td>
+                  <td>617</td>
+                  <td>5</td>
+                  <td>6</td>
+                  <td>79197172</td>
+                  <td>7.79</td>
+                  <td>0.06</td>
+                  <td>0.08</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mossi</td>
+                  <td>2</td>
+                  <td>83</td>
+                  <td>3</td>
+                  <td>5</td>
+                  <td>48027011</td>
+                  <td>1.73</td>
+                  <td>0.06</td>
+                  <td>0.10</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Guaraní</td>
+                  <td>2</td>
+                  <td>37</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>17862897</td>
+                  <td>2.07</td>
+                  <td>0.06</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Cakchiquel</td>
+                  <td>1</td>
+                  <td>17</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>16913503</td>
+                  <td>1.01</td>
+                  <td>0.06</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kekchí</td>
+                  <td>1</td>
+                  <td>17</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>16913503</td>
+                  <td>1.01</td>
+                  <td>0.06</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mam</td>
+                  <td>1</td>
+                  <td>17</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>16913503</td>
+                  <td>1.01</td>
+                  <td>0.06</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Quiché</td>
+                  <td>1</td>
+                  <td>17</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>16913503</td>
+                  <td>1.01</td>
+                  <td>0.06</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gurma</td>
+                  <td>3</td>
+                  <td>99</td>
+                  <td>3</td>
+                  <td>6</td>
+                  <td>55824705</td>
+                  <td>1.77</td>
+                  <td>0.05</td>
+                  <td>0.11</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Belorussian</td>
+                  <td>7</td>
+                  <td>1478</td>
+                  <td>10</td>
+                  <td>32</td>
+                  <td>242001350</td>
+                  <td>6.11</td>
+                  <td>0.04</td>
+                  <td>0.13</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Chibcha</td>
+                  <td>2</td>
+                  <td>313</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>53971384</td>
+                  <td>5.80</td>
+                  <td>0.04</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Fang</td>
+                  <td>3</td>
+                  <td>37</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>27346553</td>
+                  <td>1.35</td>
+                  <td>0.04</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Russian</td>
+                  <td>14</td>
+                  <td>2640</td>
+                  <td>9</td>
+                  <td>90</td>
+                  <td>291626558</td>
+                  <td>9.05</td>
+                  <td>0.03</td>
+                  <td>0.31</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kongo</td>
+                  <td>3</td>
+                  <td>28</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>35044943</td>
+                  <td>0.80</td>
+                  <td>0.03</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ewe</td>
+                  <td>2</td>
+                  <td>35</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>36631323</td>
+                  <td>0.96</td>
+                  <td>0.03</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ga-adangme</td>
+                  <td>1</td>
+                  <td>19</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>28833629</td>
+                  <td>0.66</td>
+                  <td>0.03</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bhojpuri</td>
+                  <td>2</td>
+                  <td>15</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>30570136</td>
+                  <td>0.49</td>
+                  <td>0.03</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Brahui</td>
+                  <td>1</td>
+                  <td>730</td>
+                  <td>3</td>
+                  <td>13</td>
+                  <td>197015955</td>
+                  <td>3.71</td>
+                  <td>0.02</td>
+                  <td>0.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hindko</td>
+                  <td>1</td>
+                  <td>730</td>
+                  <td>3</td>
+                  <td>13</td>
+                  <td>197015955</td>
+                  <td>3.71</td>
+                  <td>0.02</td>
+                  <td>0.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Punjabi</td>
+                  <td>14</td>
+                  <td>2338</td>
+                  <td>26</td>
+                  <td>46</td>
+                  <td>1572820281</td>
+                  <td>1.49</td>
+                  <td>0.02</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Saraiki</td>
+                  <td>1</td>
+                  <td>730</td>
+                  <td>3</td>
+                  <td>13</td>
+                  <td>197015955</td>
+                  <td>3.71</td>
+                  <td>0.02</td>
+                  <td>0.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mixtec</td>
+                  <td>1</td>
+                  <td>203</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>129163276</td>
+                  <td>1.57</td>
+                  <td>0.02</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Náhuatl</td>
+                  <td>1</td>
+                  <td>203</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>129163276</td>
+                  <td>1.57</td>
+                  <td>0.02</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Otomí</td>
+                  <td>1</td>
+                  <td>203</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>129163276</td>
+                  <td>1.57</td>
+                  <td>0.02</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Yucatec</td>
+                  <td>1</td>
+                  <td>203</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>129163276</td>
+                  <td>1.57</td>
+                  <td>0.02</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Zapotec</td>
+                  <td>1</td>
+                  <td>203</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>129163276</td>
+                  <td>1.57</td>
+                  <td>0.02</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Arawakan</td>
+                  <td>2</td>
+                  <td>203</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>49843474</td>
+                  <td>4.07</td>
+                  <td>0.02</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Caribbean</td>
+                  <td>2</td>
+                  <td>203</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>49843474</td>
+                  <td>4.07</td>
+                  <td>0.02</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Akan</td>
+                  <td>2</td>
+                  <td>33</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>53128379</td>
+                  <td>0.62</td>
+                  <td>0.02</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bari</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>40533330</td>
+                  <td>0.05</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Beja</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>40533330</td>
+                  <td>0.05</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Chilluk</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>40533330</td>
+                  <td>0.05</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Dinka</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>40533330</td>
+                  <td>0.05</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Fur</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>40533330</td>
+                  <td>0.05</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Lotuko</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>40533330</td>
+                  <td>0.05</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nubian Languages</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>40533330</td>
+                  <td>0.05</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nuer</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>40533330</td>
+                  <td>0.05</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Zande</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>40533330</td>
+                  <td>0.05</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tamil</td>
+                  <td>6</td>
+                  <td>2081</td>
+                  <td>11</td>
+                  <td>278</td>
+                  <td>1378477373</td>
+                  <td>1.51</td>
+                  <td>0.01</td>
+                  <td>0.20</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Pashto</td>
+                  <td>2</td>
+                  <td>754</td>
+                  <td>3</td>
+                  <td>14</td>
+                  <td>232546036</td>
+                  <td>3.24</td>
+                  <td>0.01</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Khmer</td>
+                  <td>3</td>
+                  <td>558</td>
+                  <td>1</td>
+                  <td>60</td>
+                  <td>180583686</td>
+                  <td>3.09</td>
+                  <td>0.01</td>
+                  <td>0.33</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kuy</td>
+                  <td>1</td>
+                  <td>411</td>
+                  <td>1</td>
+                  <td>42</td>
+                  <td>69037513</td>
+                  <td>5.95</td>
+                  <td>0.01</td>
+                  <td>0.61</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Lao</td>
+                  <td>1</td>
+                  <td>411</td>
+                  <td>1</td>
+                  <td>42</td>
+                  <td>69037513</td>
+                  <td>5.95</td>
+                  <td>0.01</td>
+                  <td>0.61</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Thai</td>
+                  <td>2</td>
+                  <td>505</td>
+                  <td>1</td>
+                  <td>59</td>
+                  <td>164578313</td>
+                  <td>3.07</td>
+                  <td>0.01</td>
+                  <td>0.36</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hindi</td>
+                  <td>8</td>
+                  <td>568</td>
+                  <td>8</td>
+                  <td>65</td>
+                  <td>1384878736</td>
+                  <td>0.41</td>
+                  <td>0.01</td>
+                  <td>0.05</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Avarian</td>
+                  <td>1</td>
+                  <td>306</td>
+                  <td>1</td>
+                  <td>12</td>
+                  <td>143989754</td>
+                  <td>2.13</td>
+                  <td>0.01</td>
+                  <td>0.08</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bashkir</td>
+                  <td>1</td>
+                  <td>306</td>
+                  <td>1</td>
+                  <td>12</td>
+                  <td>143989754</td>
+                  <td>2.13</td>
+                  <td>0.01</td>
+                  <td>0.08</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Chechen</td>
+                  <td>1</td>
+                  <td>306</td>
+                  <td>1</td>
+                  <td>12</td>
+                  <td>143989754</td>
+                  <td>2.13</td>
+                  <td>0.01</td>
+                  <td>0.08</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Chuvash</td>
+                  <td>1</td>
+                  <td>306</td>
+                  <td>1</td>
+                  <td>12</td>
+                  <td>143989754</td>
+                  <td>2.13</td>
+                  <td>0.01</td>
+                  <td>0.08</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mari</td>
+                  <td>1</td>
+                  <td>306</td>
+                  <td>1</td>
+                  <td>12</td>
+                  <td>143989754</td>
+                  <td>2.13</td>
+                  <td>0.01</td>
+                  <td>0.08</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mordva</td>
+                  <td>1</td>
+                  <td>306</td>
+                  <td>1</td>
+                  <td>12</td>
+                  <td>143989754</td>
+                  <td>2.13</td>
+                  <td>0.01</td>
+                  <td>0.08</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Udmur</td>
+                  <td>1</td>
+                  <td>306</td>
+                  <td>1</td>
+                  <td>12</td>
+                  <td>143989754</td>
+                  <td>2.13</td>
+                  <td>0.01</td>
+                  <td>0.08</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ful</td>
+                  <td>10</td>
+                  <td>168</td>
+                  <td>2</td>
+                  <td>11</td>
+                  <td>301874955</td>
+                  <td>0.56</td>
+                  <td>0.01</td>
+                  <td>0.04</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Chakma</td>
+                  <td>1</td>
+                  <td>25</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>164669751</td>
+                  <td>0.15</td>
+                  <td>0.01</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Garo</td>
+                  <td>1</td>
+                  <td>25</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>164669751</td>
+                  <td>0.15</td>
+                  <td>0.01</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Khasi</td>
+                  <td>1</td>
+                  <td>25</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>164669751</td>
+                  <td>0.15</td>
+                  <td>0.01</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Marma</td>
+                  <td>1</td>
+                  <td>25</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>164669751</td>
+                  <td>0.15</td>
+                  <td>0.01</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Santhali</td>
+                  <td>1</td>
+                  <td>25</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>164669751</td>
+                  <td>0.15</td>
+                  <td>0.01</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tripuri</td>
+                  <td>1</td>
+                  <td>25</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>164669751</td>
+                  <td>0.15</td>
+                  <td>0.01</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Moravian</td>
+                  <td>1</td>
+                  <td>995</td>
+                  <td>0</td>
+                  <td>6</td>
+                  <td>10618303</td>
+                  <td>93.71</td>
+                  <td>0.00</td>
+                  <td>0.57</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Silesiana</td>
+                  <td>1</td>
+                  <td>995</td>
+                  <td>0</td>
+                  <td>6</td>
+                  <td>10618303</td>
+                  <td>93.71</td>
+                  <td>0.00</td>
+                  <td>0.57</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sindhi</td>
+                  <td>2</td>
+                  <td>1060</td>
+                  <td>7</td>
+                  <td>36</td>
+                  <td>1536196082</td>
+                  <td>0.69</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Urdu</td>
+                  <td>3</td>
+                  <td>1541</td>
+                  <td>7</td>
+                  <td>63</td>
+                  <td>1538835293</td>
+                  <td>1.00</td>
+                  <td>0.00</td>
+                  <td>0.04</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Araucan</td>
+                  <td>1</td>
+                  <td>537</td>
+                  <td>0</td>
+                  <td>6</td>
+                  <td>18054726</td>
+                  <td>29.74</td>
+                  <td>0.00</td>
+                  <td>0.33</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Rapa nui</td>
+                  <td>1</td>
+                  <td>537</td>
+                  <td>0</td>
+                  <td>6</td>
+                  <td>18054726</td>
+                  <td>29.74</td>
+                  <td>0.00</td>
+                  <td>0.33</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Asami</td>
+                  <td>2</td>
+                  <td>332</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339987737</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bengali</td>
+                  <td>2</td>
+                  <td>355</td>
+                  <td>6</td>
+                  <td>26</td>
+                  <td>1503849878</td>
+                  <td>0.24</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gujarati</td>
+                  <td>1</td>
+                  <td>330</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339180127</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kannada</td>
+                  <td>1</td>
+                  <td>330</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339180127</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Malayalam</td>
+                  <td>1</td>
+                  <td>330</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339180127</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Marathi</td>
+                  <td>2</td>
+                  <td>344</td>
+                  <td>5</td>
+                  <td>23</td>
+                  <td>1340445265</td>
+                  <td>0.26</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Odia</td>
+                  <td>1</td>
+                  <td>330</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339180127</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Telugu</td>
+                  <td>1</td>
+                  <td>330</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339180127</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sanskrit</td>
+                  <td>1</td>
+                  <td>330</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339180127</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Konkani</td>
+                  <td>1</td>
+                  <td>330</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339180127</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nepali</td>
+                  <td>3</td>
+                  <td>333</td>
+                  <td>4</td>
+                  <td>24</td>
+                  <td>1369292735</td>
+                  <td>0.24</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bodo</td>
+                  <td>1</td>
+                  <td>330</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339180127</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kashmiri</td>
+                  <td>1</td>
+                  <td>330</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339180127</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Maithili</td>
+                  <td>2</td>
+                  <td>331</td>
+                  <td>4</td>
+                  <td>24</td>
+                  <td>1368485125</td>
+                  <td>0.24</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Santali</td>
+                  <td>1</td>
+                  <td>330</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339180127</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kazakh</td>
+                  <td>5</td>
+                  <td>426</td>
+                  <td>1</td>
+                  <td>12</td>
+                  <td>203225658</td>
+                  <td>2.10</td>
+                  <td>0.00</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tatar</td>
+                  <td>4</td>
+                  <td>416</td>
+                  <td>1</td>
+                  <td>12</td>
+                  <td>200150011</td>
+                  <td>2.08</td>
+                  <td>0.00</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Afrikaans</td>
+                  <td>2</td>
+                  <td>243</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>59250950</td>
+                  <td>4.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ndebele</td>
+                  <td>2</td>
+                  <td>243</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>73247060</td>
+                  <td>3.32</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Northsotho</td>
+                  <td>1</td>
+                  <td>240</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56717156</td>
+                  <td>4.23</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Southsotho</td>
+                  <td>1</td>
+                  <td>240</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56717156</td>
+                  <td>4.23</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Swazi</td>
+                  <td>1</td>
+                  <td>240</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56717156</td>
+                  <td>4.23</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tsonga</td>
+                  <td>1</td>
+                  <td>240</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56717156</td>
+                  <td>4.23</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tswana</td>
+                  <td>1</td>
+                  <td>240</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56717156</td>
+                  <td>4.23</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Venda</td>
+                  <td>1</td>
+                  <td>240</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56717156</td>
+                  <td>4.23</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Xhosa</td>
+                  <td>1</td>
+                  <td>240</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56717156</td>
+                  <td>4.23</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Zulu</td>
+                  <td>1</td>
+                  <td>240</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56717156</td>
+                  <td>4.23</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Latvian</td>
+                  <td>1</td>
+                  <td>124</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1949670</td>
+                  <td>63.60</td>
+                  <td>0.00</td>
+                  <td>0.51</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Man</td>
+                  <td>1</td>
+                  <td>94</td>
+                  <td>0</td>
+                  <td>17</td>
+                  <td>95540800</td>
+                  <td>0.98</td>
+                  <td>0.00</td>
+                  <td>0.18</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Muong</td>
+                  <td>1</td>
+                  <td>94</td>
+                  <td>0</td>
+                  <td>17</td>
+                  <td>95540800</td>
+                  <td>0.98</td>
+                  <td>0.00</td>
+                  <td>0.18</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nung</td>
+                  <td>1</td>
+                  <td>94</td>
+                  <td>0</td>
+                  <td>17</td>
+                  <td>95540800</td>
+                  <td>0.98</td>
+                  <td>0.00</td>
+                  <td>0.18</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tho</td>
+                  <td>1</td>
+                  <td>94</td>
+                  <td>0</td>
+                  <td>17</td>
+                  <td>95540800</td>
+                  <td>0.98</td>
+                  <td>0.00</td>
+                  <td>0.18</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Circassian</td>
+                  <td>1</td>
+                  <td>85</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>9702353</td>
+                  <td>8.76</td>
+                  <td>0.00</td>
+                  <td>0.10</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Malay-English</td>
+                  <td>1</td>
+                  <td>83</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>428697</td>
+                  <td>193.61</td>
+                  <td>0.00</td>
+                  <td>4.67</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Maltese</td>
+                  <td>1</td>
+                  <td>73</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>430835</td>
+                  <td>169.44</td>
+                  <td>0.00</td>
+                  <td>4.64</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Goajiro</td>
+                  <td>1</td>
+                  <td>70</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>31977065</td>
+                  <td>2.19</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Warrau</td>
+                  <td>1</td>
+                  <td>70</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>31977065</td>
+                  <td>2.19</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>T&#x9a;am</td>
+                  <td>1</td>
+                  <td>53</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>16005373</td>
+                  <td>3.31</td>
+                  <td>0.00</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Uzbek</td>
+                  <td>4</td>
+                  <td>134</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>91690338</td>
+                  <td>1.46</td>
+                  <td>0.00</td>
+                  <td>0.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Maori</td>
+                  <td>1</td>
+                  <td>52</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4705818</td>
+                  <td>11.05</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Abhyasi</td>
+                  <td>1</td>
+                  <td>49</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>3912061</td>
+                  <td>12.53</td>
+                  <td>0.00</td>
+                  <td>0.26</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Georgiana</td>
+                  <td>1</td>
+                  <td>49</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>3912061</td>
+                  <td>12.53</td>
+                  <td>0.00</td>
+                  <td>0.26</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Osseetti</td>
+                  <td>1</td>
+                  <td>49</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>3912061</td>
+                  <td>12.53</td>
+                  <td>0.00</td>
+                  <td>0.26</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Diola</td>
+                  <td>3</td>
+                  <td>48</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>17951135</td>
+                  <td>2.67</td>
+                  <td>0.00</td>
+                  <td>0.28</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Malinke</td>
+                  <td>6</td>
+                  <td>67</td>
+                  <td>0</td>
+                  <td>6</td>
+                  <td>59694967</td>
+                  <td>1.12</td>
+                  <td>0.00</td>
+                  <td>0.10</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Serer</td>
+                  <td>1</td>
+                  <td>47</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>15850567</td>
+                  <td>2.97</td>
+                  <td>0.00</td>
+                  <td>0.32</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Soninke</td>
+                  <td>4</td>
+                  <td>50</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>22371319</td>
+                  <td>2.24</td>
+                  <td>0.00</td>
+                  <td>0.22</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Wolof</td>
+                  <td>4</td>
+                  <td>50</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>22371319</td>
+                  <td>2.24</td>
+                  <td>0.00</td>
+                  <td>0.22</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Comorian</td>
+                  <td>1</td>
+                  <td>45</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>699000</td>
+                  <td>64.38</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Malagasy</td>
+                  <td>3</td>
+                  <td>55</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>26522940</td>
+                  <td>2.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Karakalpak</td>
+                  <td>1</td>
+                  <td>43</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>31910641</td>
+                  <td>1.35</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tadzhik</td>
+                  <td>2</td>
+                  <td>57</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>37955758</td>
+                  <td>1.50</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bamileke-bamum</td>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>24053727</td>
+                  <td>1.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Duala</td>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>24053727</td>
+                  <td>1.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Maka</td>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>24053727</td>
+                  <td>1.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mandara</td>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>24053727</td>
+                  <td>1.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Masana</td>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>24053727</td>
+                  <td>1.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tikar</td>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>24053727</td>
+                  <td>1.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Dari</td>
+                  <td>1</td>
+                  <td>24</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>35530081</td>
+                  <td>0.68</td>
+                  <td>0.00</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Garifuna</td>
+                  <td>1</td>
+                  <td>24</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>9265067</td>
+                  <td>2.59</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Miskito</td>
+                  <td>2</td>
+                  <td>26</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>15482648</td>
+                  <td>1.68</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bura</td>
+                  <td>1</td>
+                  <td>22</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>190886311</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Edo</td>
+                  <td>1</td>
+                  <td>22</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>190886311</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hausa</td>
+                  <td>2</td>
+                  <td>23</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>212363659</td>
+                  <td>0.11</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ibibio</td>
+                  <td>1</td>
+                  <td>22</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>190886311</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ibo</td>
+                  <td>1</td>
+                  <td>22</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>190886311</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ijo</td>
+                  <td>1</td>
+                  <td>22</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>190886311</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Joruba</td>
+                  <td>3</td>
+                  <td>43</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>230895632</td>
+                  <td>0.19</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kanuri</td>
+                  <td>2</td>
+                  <td>23</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>212363659</td>
+                  <td>0.11</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tiv</td>
+                  <td>1</td>
+                  <td>22</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>190886311</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Rwanda</td>
+                  <td>2</td>
+                  <td>18</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>55071365</td>
+                  <td>0.33</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ane</td>
+                  <td>1</td>
+                  <td>16</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>7797694</td>
+                  <td>2.05</td>
+                  <td>0.00</td>
+                  <td>0.13</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kabyé</td>
+                  <td>1</td>
+                  <td>16</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>7797694</td>
+                  <td>2.05</td>
+                  <td>0.00</td>
+                  <td>0.13</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kotokoli</td>
+                  <td>1</td>
+                  <td>16</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>7797694</td>
+                  <td>2.05</td>
+                  <td>0.00</td>
+                  <td>0.13</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Moba</td>
+                  <td>1</td>
+                  <td>16</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>7797694</td>
+                  <td>2.05</td>
+                  <td>0.00</td>
+                  <td>0.13</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Naudemba</td>
+                  <td>1</td>
+                  <td>16</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>7797694</td>
+                  <td>2.05</td>
+                  <td>0.00</td>
+                  <td>0.13</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Watyi</td>
+                  <td>1</td>
+                  <td>16</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>7797694</td>
+                  <td>2.05</td>
+                  <td>0.00</td>
+                  <td>0.13</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gur</td>
+                  <td>1</td>
+                  <td>14</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>24294750</td>
+                  <td>0.58</td>
+                  <td>0.00</td>
+                  <td>0.04</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kru</td>
+                  <td>2</td>
+                  <td>17</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>29026656</td>
+                  <td>0.59</td>
+                  <td>0.00</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>[South]Mande</td>
+                  <td>1</td>
+                  <td>14</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>24294750</td>
+                  <td>0.58</td>
+                  <td>0.00</td>
+                  <td>0.04</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kirgiz</td>
+                  <td>1</td>
+                  <td>14</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>6045117</td>
+                  <td>2.32</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Dhivehi</td>
+                  <td>1</td>
+                  <td>13</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>436330</td>
+                  <td>29.79</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Monegasque</td>
+                  <td>1</td>
+                  <td>11</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>38695</td>
+                  <td>284.27</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bajad</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3075647</td>
+                  <td>3.25</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Buryat</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3075647</td>
+                  <td>3.25</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Dariganga</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3075647</td>
+                  <td>3.25</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Dorbet</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3075647</td>
+                  <td>3.25</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Amharic</td>
+                  <td>1</td>
+                  <td>9</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>104957438</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gurage</td>
+                  <td>1</td>
+                  <td>9</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>104957438</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Oromo</td>
+                  <td>1</td>
+                  <td>9</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>104957438</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sidamo</td>
+                  <td>1</td>
+                  <td>9</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>104957438</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Somali</td>
+                  <td>3</td>
+                  <td>11</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>120656946</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tigrigna</td>
+                  <td>2</td>
+                  <td>10</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>110026269</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Walaita</td>
+                  <td>1</td>
+                  <td>9</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>104957438</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gusii</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>49699862</td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kalenjin</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>49699862</td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kamba</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>49699862</td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kikuyu</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>49699862</td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Luhya</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>49699862</td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Luo</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>49699862</td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Masai</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>49699862</td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Meru</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>49699862</td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nyika</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>49699862</td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Turkana</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>49699862</td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mahoré</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>253045</td>
+                  <td>27.66</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Seselwa</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>94737</td>
+                  <td>73.89</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bajan</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>285719</td>
+                  <td>21.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bubi</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>1267689</td>
+                  <td>4.73</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Chaga and Pare</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gogo</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ha</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Haya</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hehet</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Luguru</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Makonde</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nyakusa</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nyamwesi</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Shambala</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Swahili</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sranantonga</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>563402</td>
+                  <td>7.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Crioulo</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>546388</td>
+                  <td>7.32</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Banda</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4659080</td>
+                  <td>0.64</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gbaya</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4659080</td>
+                  <td>0.64</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mandjia</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4659080</td>
+                  <td>0.64</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mbum</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4659080</td>
+                  <td>0.64</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ngbaka</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4659080</td>
+                  <td>0.64</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sara</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>19559074</td>
+                  <td>0.20</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nahua</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>6377853</td>
+                  <td>0.47</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bassa</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4731906</td>
+                  <td>0.63</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gio</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4731906</td>
+                  <td>0.63</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Grebo</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4731906</td>
+                  <td>0.63</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kpelle</td>
+                  <td>2</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>17449082</td>
+                  <td>0.29</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Loma</td>
+                  <td>2</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>17449082</td>
+                  <td>0.29</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mano</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4731906</td>
+                  <td>0.63</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Caprivi</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>2533794</td>
+                  <td>1.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Herero</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>2533794</td>
+                  <td>1.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kavango</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>2533794</td>
+                  <td>1.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nama</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>2533794</td>
+                  <td>1.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ovambo</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>2533794</td>
+                  <td>1.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>San</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>2533794</td>
+                  <td>1.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nyanja</td>
+                  <td>2</td>
+                  <td>5</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>33624034</td>
+                  <td>0.15</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Shona</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>16529904</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ambo</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>29784193</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Chokwe</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>29784193</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Luchazi</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>29784193</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Luimbe-nganguela</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>29784193</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Luvale</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>29784193</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mbundu</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>29784193</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nyaneka-nkhumbi</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>29784193</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ovimbundu</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>29784193</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Adja</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>11175692</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Aizo</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>11175692</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bariba</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>11175692</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Fon</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>11175692</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Somba</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>11175692</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Dzongkha</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>807610</td>
+                  <td>2.48</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kissi</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>12717176</td>
+                  <td>0.16</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Susu</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>12717176</td>
+                  <td>0.16</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Yalunka</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>12717176</td>
+                  <td>0.16</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Haiti Creole</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>10981229</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hassaniya</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4420184</td>
+                  <td>0.45</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tukulor</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4420184</td>
+                  <td>0.45</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Zenaga</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4420184</td>
+                  <td>0.45</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sumo</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>6217581</td>
+                  <td>0.32</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bemba</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>17094130</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Chewa</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>17094130</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Lozi</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>17094130</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nsenga</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>17094130</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tongan</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>17094130</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gorane</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>14899994</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hadjarai</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>14899994</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kanem-bornu</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>14899994</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mayo-kebbi</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>14899994</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ouaddai</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>14899994</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tandjile</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>14899994</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Afar</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>6025816</td>
+                  <td>0.33</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bilin</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>5068831</td>
+                  <td>0.20</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hadareb</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>5068831</td>
+                  <td>0.20</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Saho</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>5068831</td>
+                  <td>0.20</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tigre</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>5068831</td>
+                  <td>0.20</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Fijian</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>905502</td>
+                  <td>1.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Newari</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>29304998</td>
+                  <td>0.03</td>
+                  <td>0.00</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tamang</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>29304998</td>
+                  <td>0.03</td>
+                  <td>0.00</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tharu</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>29304998</td>
+                  <td>0.03</td>
+                  <td>0.00</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Songhai-zerma</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>21477348</td>
+                  <td>0.05</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tamashek</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>21477348</td>
+                  <td>0.05</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Malenasian Languages</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>8251162</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Papuan Languages</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>8251162</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Acholi</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>42862958</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ganda</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>42862958</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gisu</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>42862958</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kiga</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>42862958</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Lango</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>42862958</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Lugbara</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>42862958</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nkole</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>42862958</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Soga</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>42862958</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Teso</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>42862958</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Greenlandic</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56480</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Chamorro</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>164229</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ami</td>
+                  <td>1</td>
+                  <td>153</td>
+                  <td>2</td>
+                  <td>28</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Atayal</td>
+                  <td>1</td>
+                  <td>153</td>
+                  <td>2</td>
+                  <td>28</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hakka</td>
+                  <td>1</td>
+                  <td>153</td>
+                  <td>2</td>
+                  <td>28</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mandarin Chinese</td>
+                  <td>1</td>
+                  <td>153</td>
+                  <td>2</td>
+                  <td>28</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Min</td>
+                  <td>1</td>
+                  <td>153</td>
+                  <td>2</td>
+                  <td>28</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Paiwan</td>
+                  <td>1</td>
+                  <td>153</td>
+                  <td>2</td>
+                  <td>28</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mixed Languages</td>
+                  <td>1</td>
+                  <td>77</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Singali</td>
+                  <td>1</td>
+                  <td>77</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+            </tbody>
+            </table>
+         </div>
+      </body>
+   </html>

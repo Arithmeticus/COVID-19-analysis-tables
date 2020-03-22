@@ -1,0 +1,60 @@
+
+<html xmlns:h="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:gpo="http://www.gpo.gov" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:file="http://expath.org/ns/file" xmlns:ucd="http://www.unicode.org/ns/2003/ucd/1.0" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+      <title>Covid Analysis</title>
+      <link rel="stylesheet" href="js/tablesorter/css/theme.default.css" type="text/css"></link>
+      <script src="js/jquery-3.4.1.min.js"></script>
+      <script type="text/javascript" src="js/tablesorter/js/jquery.tablesorter.combined.js"></script>
+      <script>
+         $(function(){
+         $('table.search').tablesorter({
+         widgets: ["filter"],
+         widgetOptions : {
+         filter_external : '.search',
+         filter_defaultFilter: { 1 : '~{query}' },
+         filter_columnFilters: false,
+         filter_placeholder: { search : 'Search...' },
+         filter_saveFilters : true,
+         filter_reset: '.reset'
+         }
+         });
+         $('table').tablesorter({
+         });
+         $('button[data-column]').on('click', function(){
+         var $this = $(this),
+         totalColumns = $table[0].config.columns,
+         col = $this.data('column'), // zero-based index or "all"
+         filter = [];
+         filter[ col === 'all' ? totalColumns : col ] = $this.text();
+         $table.trigger('search', [ filter ]);
+         return false;
+         });
+         });
+      </script>
+   </head>
+   <body>
+      <h1>COVID-19 analysis</h1>
+      <div>COVID stats are based upon Johns Hopkins data at <a
+            href="https://github.com/CSSEGISandData/COVID-19"
+            >https://github.com/CSSEGISandData/COVID-19</a> collated with 2019 statistics kept at <a
+            href="https://github.com/samayo/country-json"
+         >https://github.com/samayo/country-json</a></div>
+      <div id="font-guide" class="font-guide-component">
+         <div class="input-label">Search + Filter</div>
+         <input class="search" type="search" data-column="all" />
+         <table class="tablesorter search" id="font-table">
+            <thead>
+               <tr>
+                  <th></th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td></td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </body>
+</html>

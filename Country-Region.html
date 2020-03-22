@@ -1,0 +1,1988 @@
+<?xml version="1.1" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:gpo="http://www.gpo.gov" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:file="http://expath.org/ns/file" xmlns:ucd="http://www.unicode.org/ns/2003/ucd/1.0" xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+   
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      
+      
+      <title>Covid Analysis</title>
+      
+      <link rel="stylesheet" href="js/tablesorter/css/theme.default.css" type="text/css" />
+      <script src="js/jquery-3.4.1.min.js"></script>
+      <script type="text/javascript" src="js/tablesorter/js/jquery.tablesorter.combined.js"></script>
+      <script>
+         $(function(){
+         $('table.search').tablesorter({
+         widgets: ["filter"],
+         widgetOptions : {
+         filter_external : '.search',
+         filter_defaultFilter: { 1 : '~{query}' },
+         filter_columnFilters: false,
+         filter_placeholder: { search : 'Search...' },
+         filter_saveFilters : true,
+         filter_reset: '.reset'
+         }
+         });
+         $('table').tablesorter({
+         });
+         $('button[data-column]').on('click', function(){
+         var $this = $(this),
+         totalColumns = $table[0].config.columns,
+         col = $this.data('column'), // zero-based index or "all"
+         filter = [];
+         filter[ col === 'all' ? totalColumns : col ] = $this.text();
+         $table.trigger('search', [ filter ]);
+         return false;
+         });
+         });
+      </script>
+      </head>
+   
+   <body>
+      
+      <h1>COVID-19 analysis</h1>
+      <div xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Built 2020-03-22T06:28:02.61-04:00 from data at file:/U:/COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/03-21-2020.csv</div>
+      
+      <div>COVID stats are based upon Johns Hopkins data at <a href="https://github.com/CSSEGISandData/COVID-19">https://github.com/CSSEGISandData/COVID-19</a> collated with 2019 statistics kept at <a href="https://github.com/samayo/country-json">https://github.com/samayo/country-json</a></div>
+      
+      <div id="font-guide" class="font-guide-component">
+         
+         <div class="input-label">Search + Filter</div>
+         <input class="search" type="search" data-column="all" />
+         
+         <table class="tablesorter search" id="font-table">
+            
+            <thead>
+               
+               <tr>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">grouped by Country Region</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">items</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Confirmed</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Deaths</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Recovered</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">population</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">confirmed per mil</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">deaths per mil</td>
+                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">recovered per mil</td>
+               </tr>
+               </thead>
+            
+            <tbody>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>San Marino</td>
+                  <td>1</td>
+                  <td>144</td>
+                  <td>20</td>
+                  <td>4</td>
+                  <td>33400</td>
+                  <td>4311.38</td>
+                  <td>598.80</td>
+                  <td>119.76</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Iceland</td>
+                  <td>1</td>
+                  <td>473</td>
+                  <td>1</td>
+                  <td>22</td>
+                  <td>335025</td>
+                  <td>1411.83</td>
+                  <td>2.98</td>
+                  <td>65.67</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Luxembourg</td>
+                  <td>1</td>
+                  <td>670</td>
+                  <td>8</td>
+                  <td>0</td>
+                  <td>583455</td>
+                  <td>1148.33</td>
+                  <td>13.71</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Andorra</td>
+                  <td>1</td>
+                  <td>88</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>76965</td>
+                  <td>1143.38</td>
+                  <td>0.00</td>
+                  <td>12.99</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Holy See (Vatican City State)</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>1000</td>
+                  <td>1000.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Liechtenstein</td>
+                  <td>1</td>
+                  <td>37</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>37922</td>
+                  <td>975.69</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Italy</td>
+                  <td>1</td>
+                  <td>53578</td>
+                  <td>4825</td>
+                  <td>6072</td>
+                  <td>59359900</td>
+                  <td>902.60</td>
+                  <td>81.28</td>
+                  <td>102.29</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Switzerland</td>
+                  <td>1</td>
+                  <td>6575</td>
+                  <td>75</td>
+                  <td>15</td>
+                  <td>8476005</td>
+                  <td>775.72</td>
+                  <td>8.85</td>
+                  <td>1.77</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Spain</td>
+                  <td>1</td>
+                  <td>25374</td>
+                  <td>1375</td>
+                  <td>2125</td>
+                  <td>46354321</td>
+                  <td>547.39</td>
+                  <td>29.66</td>
+                  <td>45.84</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Norway</td>
+                  <td>1</td>
+                  <td>2118</td>
+                  <td>7</td>
+                  <td>1</td>
+                  <td>5305383</td>
+                  <td>399.22</td>
+                  <td>1.32</td>
+                  <td>0.19</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Austria</td>
+                  <td>1</td>
+                  <td>2814</td>
+                  <td>8</td>
+                  <td>9</td>
+                  <td>8735453</td>
+                  <td>322.14</td>
+                  <td>0.92</td>
+                  <td>1.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Monaco</td>
+                  <td>1</td>
+                  <td>11</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>38695</td>
+                  <td>284.27</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Germany</td>
+                  <td>1</td>
+                  <td>22213</td>
+                  <td>84</td>
+                  <td>233</td>
+                  <td>82114224</td>
+                  <td>270.51</td>
+                  <td>1.02</td>
+                  <td>2.84</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Iran</td>
+                  <td>1</td>
+                  <td>20610</td>
+                  <td>1556</td>
+                  <td>7635</td>
+                  <td>81162788</td>
+                  <td>253.93</td>
+                  <td>19.17</td>
+                  <td>94.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Denmark</td>
+                  <td>3</td>
+                  <td>1420</td>
+                  <td>13</td>
+                  <td>1</td>
+                  <td>5733551</td>
+                  <td>247.67</td>
+                  <td>2.27</td>
+                  <td>0.17</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Belgium</td>
+                  <td>1</td>
+                  <td>2815</td>
+                  <td>67</td>
+                  <td>263</td>
+                  <td>11429336</td>
+                  <td>246.30</td>
+                  <td>5.86</td>
+                  <td>23.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Estonia</td>
+                  <td>1</td>
+                  <td>306</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1309632</td>
+                  <td>233.65</td>
+                  <td>0.00</td>
+                  <td>0.76</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>France</td>
+                  <td>9</td>
+                  <td>14308</td>
+                  <td>562</td>
+                  <td>12</td>
+                  <td>64979548</td>
+                  <td>220.19</td>
+                  <td>8.65</td>
+                  <td>0.18</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Netherlands</td>
+                  <td>4</td>
+                  <td>3640</td>
+                  <td>137</td>
+                  <td>2</td>
+                  <td>17035938</td>
+                  <td>213.67</td>
+                  <td>8.04</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bahrain</td>
+                  <td>1</td>
+                  <td>305</td>
+                  <td>1</td>
+                  <td>125</td>
+                  <td>1492584</td>
+                  <td>204.34</td>
+                  <td>0.67</td>
+                  <td>83.75</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Brunei</td>
+                  <td>1</td>
+                  <td>83</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>428697</td>
+                  <td>193.61</td>
+                  <td>0.00</td>
+                  <td>4.67</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Slovenia</td>
+                  <td>1</td>
+                  <td>383</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>2079976</td>
+                  <td>184.14</td>
+                  <td>0.48</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Qatar</td>
+                  <td>1</td>
+                  <td>481</td>
+                  <td>0</td>
+                  <td>27</td>
+                  <td>2639211</td>
+                  <td>182.25</td>
+                  <td>0.00</td>
+                  <td>10.23</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sweden</td>
+                  <td>1</td>
+                  <td>1763</td>
+                  <td>20</td>
+                  <td>16</td>
+                  <td>9910701</td>
+                  <td>177.89</td>
+                  <td>2.02</td>
+                  <td>1.61</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>South Korea</td>
+                  <td>1</td>
+                  <td>8799</td>
+                  <td>102</td>
+                  <td>1540</td>
+                  <td>50982212</td>
+                  <td>172.59</td>
+                  <td>2.00</td>
+                  <td>30.21</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Malta</td>
+                  <td>1</td>
+                  <td>73</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>430835</td>
+                  <td>169.44</td>
+                  <td>0.00</td>
+                  <td>4.64</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ireland</td>
+                  <td>1</td>
+                  <td>785</td>
+                  <td>3</td>
+                  <td>5</td>
+                  <td>4761657</td>
+                  <td>164.86</td>
+                  <td>0.63</td>
+                  <td>1.05</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Portugal</td>
+                  <td>1</td>
+                  <td>1280</td>
+                  <td>12</td>
+                  <td>5</td>
+                  <td>10329506</td>
+                  <td>123.92</td>
+                  <td>1.16</td>
+                  <td>0.48</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Guadeloupe</td>
+                  <td>1</td>
+                  <td>53</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>449568</td>
+                  <td>117.89</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Israel</td>
+                  <td>1</td>
+                  <td>883</td>
+                  <td>1</td>
+                  <td>36</td>
+                  <td>8321570</td>
+                  <td>106.11</td>
+                  <td>0.12</td>
+                  <td>4.33</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Finland</td>
+                  <td>1</td>
+                  <td>523</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>5523231</td>
+                  <td>94.69</td>
+                  <td>0.18</td>
+                  <td>1.81</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Czech Republic</td>
+                  <td>1</td>
+                  <td>995</td>
+                  <td>0</td>
+                  <td>6</td>
+                  <td>10618303</td>
+                  <td>93.71</td>
+                  <td>0.00</td>
+                  <td>0.57</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Martinique</td>
+                  <td>1</td>
+                  <td>32</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>384896</td>
+                  <td>83.14</td>
+                  <td>2.60</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>United States</td>
+                  <td>57</td>
+                  <td>25493</td>
+                  <td>307</td>
+                  <td>171</td>
+                  <td>324459463</td>
+                  <td>78.57</td>
+                  <td>0.95</td>
+                  <td>0.53</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>United Kingdom</td>
+                  <td>7</td>
+                  <td>5067</td>
+                  <td>234</td>
+                  <td>67</td>
+                  <td>66181585</td>
+                  <td>76.56</td>
+                  <td>3.54</td>
+                  <td>1.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Singapore</td>
+                  <td>1</td>
+                  <td>432</td>
+                  <td>2</td>
+                  <td>140</td>
+                  <td>5708844</td>
+                  <td>75.67</td>
+                  <td>0.35</td>
+                  <td>24.52</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Seychelles</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>94737</td>
+                  <td>73.89</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Cyprus</td>
+                  <td>1</td>
+                  <td>84</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>1179551</td>
+                  <td>71.21</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Reunion</td>
+                  <td>1</td>
+                  <td>45</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>699000</td>
+                  <td>64.38</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>French Guiana</td>
+                  <td>1</td>
+                  <td>18</td>
+                  <td>0</td>
+                  <td>6</td>
+                  <td>282731</td>
+                  <td>63.66</td>
+                  <td>0.00</td>
+                  <td>21.22</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Latvia</td>
+                  <td>1</td>
+                  <td>124</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1949670</td>
+                  <td>63.60</td>
+                  <td>0.00</td>
+                  <td>0.51</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>China</td>
+                  <td>33</td>
+                  <td>81305</td>
+                  <td>3259</td>
+                  <td>71857</td>
+                  <td>1409517397</td>
+                  <td>57.68</td>
+                  <td>2.31</td>
+                  <td>50.98</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Armenia</td>
+                  <td>1</td>
+                  <td>160</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>2930450</td>
+                  <td>54.60</td>
+                  <td>0.00</td>
+                  <td>0.34</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Croatia</td>
+                  <td>1</td>
+                  <td>206</td>
+                  <td>1</td>
+                  <td>5</td>
+                  <td>4189353</td>
+                  <td>49.17</td>
+                  <td>0.24</td>
+                  <td>1.19</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Panama</td>
+                  <td>1</td>
+                  <td>200</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>4098587</td>
+                  <td>48.80</td>
+                  <td>0.24</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Greece</td>
+                  <td>1</td>
+                  <td>530</td>
+                  <td>13</td>
+                  <td>19</td>
+                  <td>11159773</td>
+                  <td>47.49</td>
+                  <td>1.16</td>
+                  <td>1.70</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Australia</td>
+                  <td>9</td>
+                  <td>1071</td>
+                  <td>7</td>
+                  <td>26</td>
+                  <td>24450561</td>
+                  <td>43.80</td>
+                  <td>0.29</td>
+                  <td>1.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kuwait</td>
+                  <td>1</td>
+                  <td>176</td>
+                  <td>0</td>
+                  <td>27</td>
+                  <td>4136528</td>
+                  <td>42.55</td>
+                  <td>0.00</td>
+                  <td>6.53</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>North Macedonia</td>
+                  <td>1</td>
+                  <td>85</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>2024000</td>
+                  <td>42.00</td>
+                  <td>0.00</td>
+                  <td>0.49</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Malaysia</td>
+                  <td>1</td>
+                  <td>1183</td>
+                  <td>4</td>
+                  <td>114</td>
+                  <td>31624264</td>
+                  <td>37.41</td>
+                  <td>0.13</td>
+                  <td>3.60</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Trinidad and Tobago</td>
+                  <td>1</td>
+                  <td>49</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>1369125</td>
+                  <td>35.79</td>
+                  <td>0.00</td>
+                  <td>0.73</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Canada</td>
+                  <td>12</td>
+                  <td>1278</td>
+                  <td>19</td>
+                  <td>10</td>
+                  <td>36624199</td>
+                  <td>34.89</td>
+                  <td>0.52</td>
+                  <td>0.27</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Slovakia</td>
+                  <td>1</td>
+                  <td>178</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5447662</td>
+                  <td>32.67</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Uruguay</td>
+                  <td>1</td>
+                  <td>110</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3456750</td>
+                  <td>31.82</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Lebanon</td>
+                  <td>1</td>
+                  <td>187</td>
+                  <td>4</td>
+                  <td>4</td>
+                  <td>6082357</td>
+                  <td>30.74</td>
+                  <td>0.66</td>
+                  <td>0.66</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ecuador</td>
+                  <td>1</td>
+                  <td>506</td>
+                  <td>7</td>
+                  <td>3</td>
+                  <td>16624858</td>
+                  <td>30.44</td>
+                  <td>0.42</td>
+                  <td>0.18</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Maldives</td>
+                  <td>1</td>
+                  <td>13</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>436330</td>
+                  <td>29.79</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Chile</td>
+                  <td>1</td>
+                  <td>537</td>
+                  <td>0</td>
+                  <td>6</td>
+                  <td>18054726</td>
+                  <td>29.74</td>
+                  <td>0.00</td>
+                  <td>0.33</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Lithuania</td>
+                  <td>1</td>
+                  <td>83</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>2890297</td>
+                  <td>28.72</td>
+                  <td>0.35</td>
+                  <td>0.35</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mayotte</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>253045</td>
+                  <td>27.66</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bosnia and Herzegovina</td>
+                  <td>1</td>
+                  <td>93</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3507017</td>
+                  <td>26.52</td>
+                  <td>0.29</td>
+                  <td>0.57</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Albania</td>
+                  <td>1</td>
+                  <td>76</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>2930187</td>
+                  <td>25.94</td>
+                  <td>0.68</td>
+                  <td>0.68</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Costa Rica</td>
+                  <td>1</td>
+                  <td>117</td>
+                  <td>2</td>
+                  <td>2</td>
+                  <td>4905769</td>
+                  <td>23.85</td>
+                  <td>0.41</td>
+                  <td>0.41</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bulgaria</td>
+                  <td>1</td>
+                  <td>163</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>7084571</td>
+                  <td>23.01</td>
+                  <td>0.42</td>
+                  <td>0.42</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Barbados</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>285719</td>
+                  <td>21.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Moldova</td>
+                  <td>1</td>
+                  <td>80</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>4051212</td>
+                  <td>19.75</td>
+                  <td>0.25</td>
+                  <td>0.25</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Romania</td>
+                  <td>1</td>
+                  <td>367</td>
+                  <td>0</td>
+                  <td>52</td>
+                  <td>19679306</td>
+                  <td>18.65</td>
+                  <td>0.00</td>
+                  <td>2.64</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>United Arab Emirates</td>
+                  <td>1</td>
+                  <td>153</td>
+                  <td>2</td>
+                  <td>38</td>
+                  <td>9400145</td>
+                  <td>16.28</td>
+                  <td>0.21</td>
+                  <td>4.04</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Poland</td>
+                  <td>1</td>
+                  <td>536</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>38170712</td>
+                  <td>14.04</td>
+                  <td>0.13</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Georgia</td>
+                  <td>1</td>
+                  <td>49</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>3912061</td>
+                  <td>12.53</td>
+                  <td>0.00</td>
+                  <td>0.26</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Saudi Arabia</td>
+                  <td>1</td>
+                  <td>392</td>
+                  <td>0</td>
+                  <td>16</td>
+                  <td>32938213</td>
+                  <td>11.90</td>
+                  <td>0.00</td>
+                  <td>0.49</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Oman</td>
+                  <td>1</td>
+                  <td>52</td>
+                  <td>0</td>
+                  <td>12</td>
+                  <td>4636262</td>
+                  <td>11.22</td>
+                  <td>0.00</td>
+                  <td>2.59</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Saint Lucia</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>178844</td>
+                  <td>11.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mauritius</td>
+                  <td>1</td>
+                  <td>14</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1265138</td>
+                  <td>11.07</td>
+                  <td>0.79</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>New Zealand</td>
+                  <td>1</td>
+                  <td>52</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4705818</td>
+                  <td>11.05</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Hungary</td>
+                  <td>1</td>
+                  <td>103</td>
+                  <td>4</td>
+                  <td>7</td>
+                  <td>9721559</td>
+                  <td>10.60</td>
+                  <td>0.41</td>
+                  <td>0.72</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Dominican Republic</td>
+                  <td>1</td>
+                  <td>112</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>10766998</td>
+                  <td>10.40</td>
+                  <td>0.19</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bahamas</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>395361</td>
+                  <td>10.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Peru</td>
+                  <td>1</td>
+                  <td>318</td>
+                  <td>5</td>
+                  <td>1</td>
+                  <td>32165485</td>
+                  <td>9.89</td>
+                  <td>0.16</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Antigua and Barbuda</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>102012</td>
+                  <td>9.80</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Saint Vincent and the Grenadines</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>109897</td>
+                  <td>9.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Guyana</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>777859</td>
+                  <td>9.00</td>
+                  <td>1.29</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Jordan</td>
+                  <td>1</td>
+                  <td>85</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>9702353</td>
+                  <td>8.76</td>
+                  <td>0.00</td>
+                  <td>0.10</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Turkey</td>
+                  <td>1</td>
+                  <td>670</td>
+                  <td>9</td>
+                  <td>0</td>
+                  <td>80745020</td>
+                  <td>8.30</td>
+                  <td>0.11</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Belarus</td>
+                  <td>1</td>
+                  <td>76</td>
+                  <td>0</td>
+                  <td>15</td>
+                  <td>9468338</td>
+                  <td>8.03</td>
+                  <td>0.00</td>
+                  <td>1.58</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Japan</td>
+                  <td>1</td>
+                  <td>1007</td>
+                  <td>35</td>
+                  <td>232</td>
+                  <td>127484450</td>
+                  <td>7.90</td>
+                  <td>0.27</td>
+                  <td>1.82</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Cape Verde</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>546388</td>
+                  <td>7.32</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Suriname</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>563402</td>
+                  <td>7.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Thailand</td>
+                  <td>1</td>
+                  <td>411</td>
+                  <td>1</td>
+                  <td>42</td>
+                  <td>69037513</td>
+                  <td>5.95</td>
+                  <td>0.01</td>
+                  <td>0.61</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Iraq</td>
+                  <td>1</td>
+                  <td>214</td>
+                  <td>17</td>
+                  <td>51</td>
+                  <td>38274618</td>
+                  <td>5.59</td>
+                  <td>0.44</td>
+                  <td>1.33</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Jamaica</td>
+                  <td>1</td>
+                  <td>16</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>2890299</td>
+                  <td>5.54</td>
+                  <td>0.35</td>
+                  <td>0.69</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Azerbaijan</td>
+                  <td>1</td>
+                  <td>53</td>
+                  <td>1</td>
+                  <td>11</td>
+                  <td>9827589</td>
+                  <td>5.39</td>
+                  <td>0.10</td>
+                  <td>1.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tunisia</td>
+                  <td>1</td>
+                  <td>60</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>11532127</td>
+                  <td>5.20</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Congo</td>
+                  <td>2</td>
+                  <td>26</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>5260750</td>
+                  <td>4.94</td>
+                  <td>0.19</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Brazil</td>
+                  <td>1</td>
+                  <td>1021</td>
+                  <td>15</td>
+                  <td>2</td>
+                  <td>209288278</td>
+                  <td>4.88</td>
+                  <td>0.07</td>
+                  <td>0.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Equatorial Guinea</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>1267689</td>
+                  <td>4.73</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>South Africa</td>
+                  <td>1</td>
+                  <td>240</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56717156</td>
+                  <td>4.23</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Colombia</td>
+                  <td>1</td>
+                  <td>196</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>49065615</td>
+                  <td>3.99</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Pakistan</td>
+                  <td>1</td>
+                  <td>730</td>
+                  <td>3</td>
+                  <td>13</td>
+                  <td>197015955</td>
+                  <td>3.71</td>
+                  <td>0.02</td>
+                  <td>0.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Argentina</td>
+                  <td>1</td>
+                  <td>158</td>
+                  <td>4</td>
+                  <td>3</td>
+                  <td>44271041</td>
+                  <td>3.57</td>
+                  <td>0.09</td>
+                  <td>0.07</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Algeria</td>
+                  <td>1</td>
+                  <td>139</td>
+                  <td>15</td>
+                  <td>32</td>
+                  <td>41318142</td>
+                  <td>3.36</td>
+                  <td>0.36</td>
+                  <td>0.77</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Burkina Faso</td>
+                  <td>1</td>
+                  <td>64</td>
+                  <td>2</td>
+                  <td>5</td>
+                  <td>19193382</td>
+                  <td>3.33</td>
+                  <td>0.10</td>
+                  <td>0.26</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Cambodia</td>
+                  <td>1</td>
+                  <td>53</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>16005373</td>
+                  <td>3.31</td>
+                  <td>0.00</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mongolia</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3075647</td>
+                  <td>3.25</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Egypt</td>
+                  <td>1</td>
+                  <td>294</td>
+                  <td>10</td>
+                  <td>41</td>
+                  <td>97553151</td>
+                  <td>3.01</td>
+                  <td>0.10</td>
+                  <td>0.42</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Senegal</td>
+                  <td>1</td>
+                  <td>47</td>
+                  <td>0</td>
+                  <td>5</td>
+                  <td>15850567</td>
+                  <td>2.97</td>
+                  <td>0.00</td>
+                  <td>0.32</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Philippines</td>
+                  <td>1</td>
+                  <td>307</td>
+                  <td>19</td>
+                  <td>13</td>
+                  <td>104918090</td>
+                  <td>2.93</td>
+                  <td>0.18</td>
+                  <td>0.12</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kazakhstan</td>
+                  <td>1</td>
+                  <td>53</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>18204499</td>
+                  <td>2.91</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Morocco</td>
+                  <td>1</td>
+                  <td>96</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>35739580</td>
+                  <td>2.69</td>
+                  <td>0.08</td>
+                  <td>0.08</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Paraguay</td>
+                  <td>1</td>
+                  <td>18</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>6811297</td>
+                  <td>2.64</td>
+                  <td>0.15</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Honduras</td>
+                  <td>1</td>
+                  <td>24</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>9265067</td>
+                  <td>2.59</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bhutan</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>807610</td>
+                  <td>2.48</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kyrgyzstan</td>
+                  <td>1</td>
+                  <td>14</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>6045117</td>
+                  <td>2.32</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Venezuela</td>
+                  <td>1</td>
+                  <td>70</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>31977065</td>
+                  <td>2.19</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Russian Federation</td>
+                  <td>1</td>
+                  <td>306</td>
+                  <td>1</td>
+                  <td>12</td>
+                  <td>143989754</td>
+                  <td>2.13</td>
+                  <td>0.01</td>
+                  <td>0.08</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Togo</td>
+                  <td>1</td>
+                  <td>16</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>7797694</td>
+                  <td>2.05</td>
+                  <td>0.00</td>
+                  <td>0.13</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gabon</td>
+                  <td>1</td>
+                  <td>4</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>2025137</td>
+                  <td>1.98</td>
+                  <td>0.49</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Cuba</td>
+                  <td>1</td>
+                  <td>21</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>11484636</td>
+                  <td>1.83</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bolivia</td>
+                  <td>1</td>
+                  <td>19</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>11051600</td>
+                  <td>1.72</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Indonesia</td>
+                  <td>1</td>
+                  <td>450</td>
+                  <td>38</td>
+                  <td>15</td>
+                  <td>263991379</td>
+                  <td>1.70</td>
+                  <td>0.14</td>
+                  <td>0.06</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mexico</td>
+                  <td>1</td>
+                  <td>203</td>
+                  <td>2</td>
+                  <td>4</td>
+                  <td>129163276</td>
+                  <td>1.57</td>
+                  <td>0.02</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Rwanda</td>
+                  <td>1</td>
+                  <td>17</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>12208407</td>
+                  <td>1.39</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Uzbekistan</td>
+                  <td>1</td>
+                  <td>43</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>31910641</td>
+                  <td>1.35</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Namibia</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>2533794</td>
+                  <td>1.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Cameroon</td>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>24053727</td>
+                  <td>1.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Fiji Islands</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>905502</td>
+                  <td>1.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ukraine</td>
+                  <td>1</td>
+                  <td>47</td>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>44222947</td>
+                  <td>1.06</td>
+                  <td>0.07</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Djibouti</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>956985</td>
+                  <td>1.04</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Guatemala</td>
+                  <td>1</td>
+                  <td>17</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>16913503</td>
+                  <td>1.01</td>
+                  <td>0.06</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Vietnam</td>
+                  <td>1</td>
+                  <td>94</td>
+                  <td>0</td>
+                  <td>17</td>
+                  <td>95540800</td>
+                  <td>0.98</td>
+                  <td>0.00</td>
+                  <td>0.18</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>East Timor</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>1296311</td>
+                  <td>0.77</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Afghanistan</td>
+                  <td>1</td>
+                  <td>24</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>35530081</td>
+                  <td>0.68</td>
+                  <td>0.00</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ghana</td>
+                  <td>1</td>
+                  <td>19</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>28833629</td>
+                  <td>0.66</td>
+                  <td>0.03</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Central African Republic</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4659080</td>
+                  <td>0.64</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Liberia</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4731906</td>
+                  <td>0.63</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ivory Coast</td>
+                  <td>1</td>
+                  <td>14</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>24294750</td>
+                  <td>0.58</td>
+                  <td>0.00</td>
+                  <td>0.04</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Gambia</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>2100568</td>
+                  <td>0.48</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>El Salvador</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>6377853</td>
+                  <td>0.47</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Mauritania</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>4420184</td>
+                  <td>0.45</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nicaragua</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>6217581</td>
+                  <td>0.32</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>India</td>
+                  <td>1</td>
+                  <td>330</td>
+                  <td>4</td>
+                  <td>23</td>
+                  <td>1339180127</td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Eritrea</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>5068831</td>
+                  <td>0.20</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Zimbabwe</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>16529904</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Benin</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>11175692</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Haiti</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>10981229</td>
+                  <td>0.18</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Guinea</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>12717176</td>
+                  <td>0.16</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Bangladesh</td>
+                  <td>1</td>
+                  <td>25</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>164669751</td>
+                  <td>0.15</td>
+                  <td>0.01</td>
+                  <td>0.02</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kenya</td>
+                  <td>1</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>49699862</td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nigeria</td>
+                  <td>1</td>
+                  <td>22</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>190886311</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.01</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Madagascar</td>
+                  <td>1</td>
+                  <td>3</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>25570895</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Zambia</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>17094130</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Papua New Guinea</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>8251162</td>
+                  <td>0.12</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Tanzania</td>
+                  <td>1</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>57310019</td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Ethiopia</td>
+                  <td>1</td>
+                  <td>9</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>104957438</td>
+                  <td>0.09</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Angola</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>29784193</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Chad</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>14899994</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Somalia</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>14742523</td>
+                  <td>0.07</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sudan</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>40533330</td>
+                  <td>0.05</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Niger</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>21477348</td>
+                  <td>0.05</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Nepal</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>29304998</td>
+                  <td>0.03</td>
+                  <td>0.00</td>
+                  <td>0.03</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Uganda</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>42862958</td>
+                  <td>0.02</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Greenland</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>56480</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Guam</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>164229</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Puerto Rico</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>3663131</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Cruise Ship</td>
+                  <td>1</td>
+                  <td>712</td>
+                  <td>8</td>
+                  <td>325</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Serbia</td>
+                  <td>1</td>
+                  <td>171</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Taiwan</td>
+                  <td>1</td>
+                  <td>153</td>
+                  <td>2</td>
+                  <td>28</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Sri Lanka</td>
+                  <td>1</td>
+                  <td>77</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Montenegro</td>
+                  <td>1</td>
+                  <td>14</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Kosovo</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Eswatini</td>
+                  <td>1</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Guernsey</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>Jersey</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                  <td>The Democratic Republic of Congo</td>
+                  <td>1</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td>0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+               </tr>
+            </tbody>
+            </table>
+         </div>
+      </body>
+   </html>
