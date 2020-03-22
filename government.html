@@ -40,13 +40,13 @@
    <body>
       
       <h1>COVID-19 analysis</h1>
-      <div xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Built 2020-03-22T06:11:15.397-04:00 from data at file:/U:/COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/03-21-2020.csv</div>
+      <div>Built 2020-03-22T07:01:43.794-04:00 from data at file:/U:/COVID-19/data/cases.csv</div>
       
       <div>COVID stats are based upon Johns Hopkins data at <a href="https://github.com/CSSEGISandData/COVID-19">https://github.com/CSSEGISandData/COVID-19</a> collated with 2019 statistics kept at <a href="https://github.com/samayo/country-json">https://github.com/samayo/country-json</a></div>
       
       <div id="font-guide" class="font-guide-component">
          
-         <div class="input-label">Font Guide Search + Filter</div>
+         <div class="input-label">Search + Filter</div>
          <input class="search" type="search" data-column="all" />
          
          <table class="tablesorter search" id="font-table">
@@ -54,20 +54,20 @@
             <thead>
                
                <tr>
-                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">grouped by government</td>
-                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">items</td>
-                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Confirmed</td>
-                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Deaths</td>
-                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">Recovered</td>
-                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">population</td>
-                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">confirmed per mil</td>
-                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">deaths per mil</td>
-                  <td xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">recovered per mil</td>
+                  <td>grouped by government</td>
+                  <td>items</td>
+                  <td>Confirmed</td>
+                  <td>Deaths</td>
+                  <td>Recovered</td>
+                  <td>population</td>
+                  <td>confirmed per mil</td>
+                  <td>deaths per mil</td>
+                  <td>recovered per mil</td>
                </tr>
                </thead>
             
             <tbody>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Parliamentary Coprincipality</td>
                   <td>1</td>
                   <td>88</td>
@@ -78,7 +78,7 @@
                   <td>0.00</td>
                   <td>12.99</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Independent Church State</td>
                   <td>1</td>
                   <td>1</td>
@@ -89,29 +89,29 @@
                   <td>0.00</td>
                   <td>0.00</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Federation</td>
                   <td>1</td>
-                  <td>6575</td>
-                  <td>75</td>
-                  <td>15</td>
+                  <td>6863</td>
+                  <td>80</td>
+                  <td>131</td>
                   <td>8476005</td>
-                  <td>775.72</td>
-                  <td>8.85</td>
-                  <td>1.77</td>
+                  <td>809.70</td>
+                  <td>9.44</td>
+                  <td>15.46</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Monarchy (Emirate)</td>
                   <td>1</td>
-                  <td>305</td>
+                  <td>310</td>
                   <td>1</td>
                   <td>125</td>
                   <td>1492584</td>
-                  <td>204.34</td>
+                  <td>207.69</td>
                   <td>0.67</td>
                   <td>83.75</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Islamic Republic</td>
                   <td>2</td>
                   <td>20612</td>
@@ -122,43 +122,32 @@
                   <td>12.79</td>
                   <td>62.74</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Federation Constitutional Monarchy</td>
-                  <td>10</td>
-                  <td>3886</td>
+                  <td>11</td>
+                  <td>4164</td>
                   <td>74</td>
-                  <td>289</td>
+                  <td>336</td>
                   <td>35879897</td>
-                  <td>108.31</td>
+                  <td>116.05</td>
                   <td>2.06</td>
-                  <td>8.05</td>
+                  <td>9.36</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Constitutional Monarchy</td>
-                  <td>35</td>
-                  <td>43018</td>
-                  <td>1838</td>
-                  <td>2607</td>
+                  <td>34</td>
+                  <td>43482</td>
+                  <td>1850</td>
+                  <td>2637</td>
                   <td>457694196</td>
-                  <td>93.99</td>
-                  <td>4.02</td>
-                  <td>5.70</td>
+                  <td>95.00</td>
+                  <td>4.04</td>
+                  <td>5.76</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-                  <td>Overseas Department of France</td>
-                  <td>4</td>
-                  <td>148</td>
-                  <td>1</td>
-                  <td>6</td>
-                  <td>1816195</td>
-                  <td>81.49</td>
-                  <td>0.55</td>
-                  <td>3.30</td>
-               </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>People's Republic</td>
                   <td>33</td>
-                  <td>81305</td>
+                  <td>81304</td>
                   <td>3259</td>
                   <td>71857</td>
                   <td>1409517397</td>
@@ -166,7 +155,7 @@
                   <td>2.31</td>
                   <td>50.98</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Constitutional Monarchy (Emirate)</td>
                   <td>1</td>
                   <td>176</td>
@@ -177,40 +166,29 @@
                   <td>0.00</td>
                   <td>6.53</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Republic</td>
-                  <td>109</td>
-                  <td>91916</td>
-                  <td>5708</td>
-                  <td>8164</td>
+                  <td>108</td>
+                  <td>92894</td>
+                  <td>5736</td>
+                  <td>11171</td>
                   <td>2289062654</td>
-                  <td>40.15</td>
-                  <td>2.49</td>
-                  <td>3.57</td>
+                  <td>40.58</td>
+                  <td>2.51</td>
+                  <td>4.88</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Constitutional Monarchy, Federation</td>
-                  <td>12</td>
-                  <td>1278</td>
-                  <td>19</td>
-                  <td>10</td>
+                  <td>13</td>
+                  <td>1331</td>
+                  <td>20</td>
+                  <td>0</td>
                   <td>36624199</td>
-                  <td>34.89</td>
-                  <td>0.52</td>
-                  <td>0.27</td>
-               </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-                  <td>Territorial Collectivity of France</td>
-                  <td>1</td>
-                  <td>7</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>253045</td>
-                  <td>27.66</td>
-                  <td>0.00</td>
+                  <td>36.34</td>
+                  <td>0.55</td>
                   <td>0.00</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Monarchy (Sultanate)</td>
                   <td>2</td>
                   <td>135</td>
@@ -221,7 +199,7 @@
                   <td>0.00</td>
                   <td>2.76</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Monarchy</td>
                   <td>3</td>
                   <td>875</td>
@@ -232,18 +210,18 @@
                   <td>0.00</td>
                   <td>1.18</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Federal Republic</td>
-                  <td>69</td>
-                  <td>52779</td>
-                  <td>427</td>
-                  <td>471</td>
+                  <td>3189</td>
+                  <td>54511</td>
+                  <td>467</td>
+                  <td>320</td>
                   <td>2542970493</td>
-                  <td>20.75</td>
-                  <td>0.17</td>
-                  <td>0.19</td>
+                  <td>21.44</td>
+                  <td>0.18</td>
+                  <td>0.13</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Emirate Federation</td>
                   <td>1</td>
                   <td>153</td>
@@ -254,7 +232,7 @@
                   <td>0.21</td>
                   <td>4.04</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Socialistic Republic</td>
                   <td>2</td>
                   <td>115</td>
@@ -265,18 +243,7 @@
                   <td>0.01</td>
                   <td>0.16</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-                  <td>Administrated by the UN</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>1296311</td>
-                  <td>0.77</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-               </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Islamic Emirate</td>
                   <td>1</td>
                   <td>24</td>
@@ -287,7 +254,7 @@
                   <td>0.00</td>
                   <td>0.03</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td>Federal parliamentary republic</td>
                   <td>1</td>
                   <td>1</td>
@@ -298,45 +265,12 @@
                   <td>0.00</td>
                   <td>0.03</td>
                </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-                  <td>Part of Denmark</td>
-                  <td>1</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>56480</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-               </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-                  <td>US Territory</td>
-                  <td>1</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>164229</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-               </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-                  <td>Commonwealth of the US</td>
-                  <td>1</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>3663131</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-               </tr>
-               <tr xmlns:tan="tag:textalign.net,2015:ns" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+               <tr>
                   <td></td>
-                  <td>10</td>
-                  <td>1130</td>
+                  <td>7</td>
+                  <td>1134</td>
                   <td>11</td>
-                  <td>355</td>
+                  <td>600</td>
                   <td>0</td>
                   <td></td>
                   <td></td>

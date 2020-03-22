@@ -37,9 +37,6 @@
    <xsl:param name="group-by-what-element" as="xs:string"
       select="$elements-to-group-by[$element-choice]"/>
    
-   <xsl:variable name="covid-daily-reports-uris"
-      select="uri-collection('csse_covid_19_data/csse_covid_19_daily_reports')"/>
-   
    <xsl:variable name="country-populations"
       select="tan:jsonxmlmap-to-xml(json-to-xml(unparsed-text('../country-json/src/country-by-population.json')))"/>
    
@@ -64,13 +61,25 @@
       select="tan:jsonxmlmap-to-xml(json-to-xml(unparsed-text('../country-json/src/country-by-landlocked.json')))"/>
    
    
+   <xsl:variable name="covid-daily-reports-uris"
+      select="uri-collection('csse_covid_19_data/csse_covid_19_daily_reports')"/>
+   
+   <xsl:variable name="covid-rapid-report-uri" select="resolve-uri('data/cases.csv', static-base-uri())"/>
+   
    <xsl:variable name="latest-covid-stats-uri" as="xs:string?">
-      <xsl:for-each select="$covid-daily-reports-uris[ends-with(., 'csv')]">
-         <xsl:sort order="descending"/>
-         <xsl:if test="position() = 1">
-            <xsl:value-of select="."/>
-         </xsl:if>
-      </xsl:for-each>
+      <xsl:choose>
+         <xsl:when test="exists($covid-rapid-report-uri)">
+            <xsl:sequence select="$covid-rapid-report-uri"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:for-each select="$covid-daily-reports-uris[ends-with(., 'csv')]">
+               <xsl:sort order="descending"/>
+               <xsl:if test="position() = 1">
+                  <xsl:value-of select="."/>
+               </xsl:if>
+            </xsl:for-each>
+         </xsl:otherwise>
+      </xsl:choose>
    </xsl:variable>
    
    <xsl:variable name="latest-stat" select="unparsed-text-lines($latest-covid-stats-uri)"/>
@@ -426,8 +435,8 @@
       <analysis>
          <latest-uri><xsl:value-of select="$latest-covid-stats-uri"/></latest-uri>
          <lax><xsl:copy-of select="$latest-as-xml"/></lax>
-         <xml-norm><xsl:copy-of select="$latest-by-countries-normalized"/></xml-norm>
-         <country><xsl:copy-of select="$latest-by-country"/></country>
+         <!--<xml-norm><xsl:copy-of select="$latest-by-countries-normalized"/></xml-norm>-->
+         <!--<country><xsl:copy-of select="$latest-by-country"/></country>-->
          <!--<pops><xsl:copy-of select="$country-populations"/></pops>-->
          <!--<orphans><xsl:copy-of select="$covid-countries-without-match-in-other-country-dataset"/></orphans>-->
       </analysis>
