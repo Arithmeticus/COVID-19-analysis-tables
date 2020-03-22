@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="#all"
    xmlns:tan="tag:textalign.net,2015:ns" xmlns:h="http://www.w3.org/1999/xhtml" 
    xmlns:xs="http://www.w3.org/2001/XMLSchema" version="3.0">
    
@@ -251,13 +251,6 @@
                   return
                      xs:integer($i))"
             />
-            <!--<xsl:variable name="this-group-population"
-               as="xs:integer?"
-               select="
-                  for $i in $country-populations/array/map[country = $this-country-name]/population[1][string-length(.) gt 0]
-                  return
-                     xs:integer($i)"
-            />-->
             <xsl:variable name="these-population-items" as="xs:integer*">
                <xsl:for-each-group select="current-group()" group-by="Country-Region">
                   <xsl:variable name="these-pops" select="current-group()/population[string-length(.) gt 0]"/>
