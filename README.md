@@ -2,19 +2,17 @@
 
 ## Special fork by Joel Kalvesmaki: tabular analyses
 
-Tables of perhaps greatest interest, showing absolute numbers, and numbers per million population:
+Tables of perhaps greatest interest, showing both absolute and proportionate numbers of reported cases, deaths, and recoveries from the Coronavirus COVID-19. All tables are sorted **initially** by number of **reported cases per million residents**:
 * [Grouped by country](Country-Region.html)
-* [Grouped by language](language.html) (Note: this counts an entire country that has that language, even if minority, based on 
-[json data for languages in countries](https://github.com/samayo/country-json/blob/master/src/country-by-languages.json))
 * [Grouped by government type](government.html)
 * [Grouped by religion](religion.html)
 * [Grouped by landlocked or not](landlocked.html)
 
-I have hastily written an XSLT stylesheet that combines the data from 
-[Hopkins](https://github.com/CSSEGISandData/COVID-19) with the data provided by 
-[@samoyo](https://github.com/samayo/country-json) to present analyses of the table of confirmed cases, deaths, and recoveries grouped by different national traits. The table javascript comes from [the version of TableSorter provided by @mottie](https://mottie.github.io/tablesorter/docs/).
+The reports are based on a hastily written XSLT stylesheet that groups the data from 
+[Hopkins](https://github.com/CSSEGISandData/COVID-19) based on the data provided by 
+[@samoyo](https://github.com/samayo/country-json), which appears to be based on data from 2019 or earlier. The table javascript comes from [the version of TableSorter provided by @mottie](https://mottie.github.io/tablesorter/docs/).
 
-I plan on refreshing the data only periodically, when I'm personally curious. You can fork or pull the project yourself and pull the files yourself, either from the master branch or the web-data one. You'll get the latest data working off the web-data branch, and being sure to pull from Hopkins's repo.
+I plan on refreshing the data only periodically, and only when I'm personally curious. You can fork or pull the project yourself and pull the files yourself, either from the master branch or the web-data one. You'll get the latest data working off the web-data branch, and being sure to pull from Hopkins's repo.
 
 ## Original notice
 
