@@ -7,6 +7,8 @@ Tables of perhaps greatest interest, showing both absolute and proportionate num
 * [Grouped by religion](religion.html)
 * [Grouped by landlocked or not](landlocked.html)
 
+See [project files deployed](https://arithmeticus.github.io/COVID-19-analysis-tables/) 
+
 The reports are based on a hastily written XSLT stylesheet that groups the data from 
 [Hopkins](https://github.com/CSSEGISandData/COVID-19) based on the data provided by 
 [@samoyo](https://github.com/samayo/country-json), which appears to be based on data from 2019 or earlier. The table javascript comes from [the version of TableSorter provided by @mottie](https://mottie.github.io/tablesorter/docs/).
